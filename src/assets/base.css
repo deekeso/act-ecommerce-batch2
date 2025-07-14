@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Crete+Round:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+:root {
+  --teal: #86ceb5;
+  --offwhite: #fefbf2;
+  --mint: #c4e4d5;
+  --brown: #eec263;
+  --chocolate: #553a00;
+  --font-header: 'Crete Round', serif;
+  --font-body: 'Lato', sans-serif;
+}
+
+body {
+  /* From: https://gingham.laney.tech/ */
+  background-image:
+    linear-gradient(
+      0deg,
+      rgba(133, 206, 181, 0.6) 0% 12.5%,
+      rgba(254, 251, 242, 0.6) 12.5% 37.5%,
+      rgba(133, 206, 181, 0.6) 37.5% 62.5%,
+      rgba(254, 251, 242, 0.6) 62.5% 87.5%,
+      rgba(133, 206, 181, 0.6) 87.5% 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(133, 206, 181, 0.6) 0% 12.5%,
+      rgba(254, 251, 242, 0.6) 12.5% 37.5%,
+      rgba(133, 206, 181, 0.6) 37.5% 62.5%,
+      rgba(254, 251, 242, 0.6) 62.5% 87.5%,
+      rgba(133, 206, 181, 0.6) 87.5% 100%
+    );
+  background-size:
+    240px 240px,
+    240px 240px,
+    240px 240px,
+    240px 240px;
+  font-family: var(--font-body);
+}
