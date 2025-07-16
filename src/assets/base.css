@@ -4,9 +4,11 @@
 :root {
   --teal: #86ceb5;
   --offwhite: #fefbf2;
+  --lightgrey: #fcfbf3;
   --mint: #c4e4d5;
   --brown: #eec263;
   --chocolate: #553a00;
+  --darkchocolate: #342626;
   --font-header: 'Crete Round', serif;
   --font-body: 'Lato', sans-serif;
 }
@@ -36,4 +38,43 @@ body {
     240px 240px,
     240px 240px;
   font-family: var(--font-body);
+  color: var(--darkchocolate);
+}
+
+/* Sharp corners for all Element Plus components for styling */
+:root {
+  --el-border-radius-base: 0 !important;
+  --el-border-radius-small: 0 !important;
+  --el-border-radius-round: 0 !important;
+}
+
+/* Override component styles for sharp corners */
+.el-button,
+.el-input__wrapper,
+.el-textarea__wrapper,
+.el-select-dropdown,
+.el-card,
+.el-menu,
+.el-menu-item,
+.el-dialog,
+.el-message-box,
+.el-notification,
+.el-tag,
+.el-badge,
+.el-pagination button,
+.el-pagination .el-input__wrapper,
+.el-tabs__nav,
+.el-tabs__item,
+.el-collapse-item__header,
+.el-collapse-item__content,
+.el-timeline-item__node,
+.el-dropdown-menu,
+.el-tooltip__popper {
+  border-radius: 0 !important;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
