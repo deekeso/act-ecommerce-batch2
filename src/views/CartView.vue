@@ -60,10 +60,10 @@
 
           <el-row :gutter="20">
             <el-col :span="12">
-              <h4 class="cart-view-header">Total</h4>
+              <h4 class="cart-view-total">Total</h4>
             </el-col>
             <el-col :span="12">
-              <h4 class="cart-view-header">₱{{ ordertotal }}</h4>
+              <h4 class="cart-view-total">₱{{ ordertotal }}</h4>
             </el-col>
           </el-row>
 
@@ -83,7 +83,7 @@
             </el-col>
           </el-row>
 
-          <el-row v-if="!userStore.isLoggedIn">
+          <el-row v-if="!userStore.isLoggedIn" class="login-notice">
             <el-alert title="Please log in to checkout" type="info" :closable="false" show-icon />
           </el-row>
         </el-col>
@@ -117,52 +117,23 @@ export default {}
   gap: 10px;
 }
 
-.cart-items {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  padding: 20px;
-}
-
 .cart-view-header {
   font-family: var(--font-header);
 }
 
-.cart-summary h3 {
-  margin-top: 0;
-  margin-bottom: 20px;
-  font-size: 18px;
+.cart-view-details {
+  color: grey;
 }
 
-.summary-row {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
-  color: #606266;
-}
-
-.summary-row.total {
-  margin-top: 20px;
-  padding-top: 15px;
-  border-top: 1px solid #ebeef5;
+.cart-view-total {
   font-weight: 600;
-  font-size: 18px;
-  color: #303133;
 }
 
-.cart-actions {
-  margin-top: 25px;
-  display: flex;
-  justify-content: space-between;
+.checkout-btn {
+  color: var(--teal);
 }
 
 .login-notice {
   margin-top: 20px;
-}
-
-.login-link {
-  color: #409eff;
-  text-decoration: underline;
-  margin-left: 5px;
 }
 </style>

@@ -103,6 +103,7 @@ export default {}
 
 .submit-button {
   width: 100%;
+  color: var(--teal);
 }
 
 .back-link {
