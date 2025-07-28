@@ -1,41 +1,29 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomePage from '@/views/HomePage.vue'
-import ProductDetails from '@/views/ProductDetails.vue'
-import Product from '@/views/ProductsPage.vue'
-import MainLayout from '@/layouts/MainLayout.vue'
+import routes from './routes'
+import { useAuth } from '@/stores/auth'
+import { ElMessage } from 'element-plus'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      component: MainLayout,
-      children: [
-        {
-          path: '/',
-          name: 'home',
-          component: HomePage,
-        },
-      ],
-    },
+  routes,
+  scrollBehavior() {
+    return { top: 0, left: 0 }
+  },
+})
 
-    {
-      path: '/products',
-      component: MainLayout,
-      children: [
-        {
-          path: '/products',
-          name: 'products',
-          component: Product,
-        },
-        {
-          path: '/products/:id',
-          name: 'products-details',
-          component: ProductDetails,
-        },
-      ],
-    },
-  ],
+router.beforeEach((to, from, next) => {
+  const auth = useAuth()
+  auth.loadAuthFromStorage()
+
+  if (to.meta.requiresAuth && (!auth.user || !auth.token)) {
+    ElMessage.info('You must log in first')
+    next('/login')
+  } else if (to.meta.requiresGuest && auth.user && auth.token) {
+    ElMessage.info('You are already logged in')
+    next('/')
+  } else {
+    next()
+  }
 })
 
 export default router
