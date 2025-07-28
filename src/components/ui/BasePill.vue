@@ -1,6 +1,6 @@
 <template>
   <div class="pill">
-    <div class="pill-box">{{ category.name }}</div>
+    <router-link :to="`/category/${props.name}`" class="pill-box">{{ props.name }}</router-link>
   </div>
 </template>
 
@@ -10,10 +10,13 @@ interface PillProps {
   subcategory?: string
 }
 
-const category = defineProps<PillProps>()
+const props = defineProps<PillProps>()
 </script>
 
 <style scoped>
+.pill a{
+  text-decoration: none;
+}
 .pill {
   display: flex;
   justify-content: center;
@@ -36,4 +39,5 @@ const category = defineProps<PillProps>()
   color: #000;
   transform: scale(1.05);
 }
+
 </style>
