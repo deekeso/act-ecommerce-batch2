@@ -78,7 +78,7 @@ function handleBuyItem() {
   } else {
     cartStore.setBuyNow({
       ...product.value,
-      quantity: quantity.value,
+      quantity: quantity.value <= 0 ? (quantity.value = 1) : quantity.value,
       selectedItem: true,
     })
     router.push('/checkout')
@@ -94,7 +94,7 @@ function handleAddToCart() {
   if (!authStore.token) {
     router.push('/login')
   } else {
-    cartStore.handleAddToCart({ ...product.value, quantity: quantity.value })
+    cartStore.handleAddToCart({ ...product.value, quantity: quantity.value <= 0 ? (quantity.value = 1) : quantity.value })
     quantity.value = 1
   }
 }

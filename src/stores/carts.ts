@@ -9,7 +9,7 @@ import { useAuth } from './auth'
 export const useCart = defineStore('cart', {
   state: () => ({
     cart: [] as Carts[],
-    buyNowItem: {} as Carts | null
+    buyNowItem: {} as Carts | null,
   }),
 
   getters: {
@@ -19,17 +19,20 @@ export const useCart = defineStore('cart', {
       state.cart.filter((item) => item.selectedItem).reduce((total, item) => total + item.quantity * item.price, 0),
     getSelectItems: (state) => state.cart.length > 0 && state.cart.every((item) => item.selectedItem),
     getAllSelectedCartItems: (state) => state.cart.filter((item) => item.selectedItem === true),
-    getBuyNowItems: (state) => state.buyNowItem
+    getBuyNowItems: (state) => state.buyNowItem,
   },
 
   actions: {
-    
-    setBuyNow(cartItem: Carts){
+    setBuyNow(cartItem: Carts) {
+      if (cartItem.quantity <= 0) {
+        ElMessage.error('Invalid Quantity')
+        return
+      }
       const tempItem = cartItem
       localStorage.setItem('buyNowItem', JSON.stringify(tempItem))
     },
 
-    clearBuyNow(){
+    clearBuyNow() {
       localStorage.removeItem('buyNowItem')
     },
 
@@ -54,8 +57,8 @@ export const useCart = defineStore('cart', {
     clearCartOnLogout() {
       this.cart = []
     },
-    
-    removeCartItems(){
+
+    removeCartItems() {
       this.cart = this.cart.filter((item) => !item.selectedItem)
       this.saveCartItemsOnLocalStorage()
     },
@@ -90,6 +93,11 @@ export const useCart = defineStore('cart', {
     },
 
     handleAddToCart(cartItem: Carts) {
+      if (cartItem.quantity <= 0) {
+        ElMessage.error('Invalid Quantity')
+        return
+      }
+
       const { toastMessage } = useUtils()
       const index = this.cart.findIndex((item) => item.id === cartItem.id)
 
@@ -111,6 +119,9 @@ export const useCart = defineStore('cart', {
     },
 
     handleSetQuantity(id: string, newQuantity: number) {
+      if (newQuantity < 0) {
+        ElMessage.error('Invalid Quantity')
+      }
       const index = this.cart.findIndex((item) => item.id === id)
       if (index !== -1) {
         this.cart[index].quantity = newQuantity
