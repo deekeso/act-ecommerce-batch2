@@ -37,37 +37,37 @@ export const useAuth = defineStore('auth', {
         ElMessage.error('Failed to update password. User not found.')
       }
     },
-    
-    forgotPassword(userInput: { email: string}){
-    const existingUserIndex = this.users.findIndex((u) => u.email === userInput.email)
 
-    if (existingUserIndex === -1) {
-      ElMessage.error('Email not found')
-      return
-    }
+    forgotPassword(userInput: { email: string }) {
+      const existingUserIndex = this.users.findIndex((u) => u.email === userInput.email)
 
-    ElMessageBox.prompt('Enter your new password', 'Reset Password', {
-      confirmButtonText: 'Confirm',
-      cancelButtonText: 'Cancel',
-      inputType: 'password',
-      inputPattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/,
-      inputErrorMessage: 'Password must be at least 6 characters long',
-    })
-      .then(({ value }) => {
-        this.users[existingUserIndex].password = value
+      if (existingUserIndex === -1) {
+        ElMessage.error('Email not found')
+        return
+      }
 
-        // If the current user is the one being updated
-        if (this.user?.email === userInput.email) {
-          this.user.password = value
-          this.saveCurrentUserOnLocalStorage()
-        }
-
-        this.saveUsersOnLocalStorage()
-        ElMessage.success('Password updated successfully')
+      ElMessageBox.prompt('Enter your new password', 'Reset Password', {
+        confirmButtonText: 'Confirm',
+        cancelButtonText: 'Cancel',
+        inputType: 'password',
+        inputPattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/,
+        inputErrorMessage: 'Password must be at least 6 characters long',
       })
-      .catch(() => {
-        ElMessage.info('Password reset cancelled')
-      })
+        .then(({ value }) => {
+          this.users[existingUserIndex].password = value
+
+          // If the current user is the one being updated
+          if (this.user?.email === userInput.email) {
+            this.user.password = value
+            this.saveCurrentUserOnLocalStorage()
+          }
+
+          this.saveUsersOnLocalStorage()
+          ElMessage.success('Password updated successfully')
+        })
+        .catch(() => {
+          ElMessage.info('Password reset cancelled')
+        })
     },
 
     setProfile(formData: Partial<User>) {
@@ -134,6 +134,10 @@ export const useAuth = defineStore('auth', {
     },
 
     handleLogout() {
+      if (!this.token) {
+        return
+      }
+
       this.user = null
       this.token = null
       localStorage.removeItem('user')

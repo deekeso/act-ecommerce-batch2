@@ -1,24 +1,25 @@
 <template>
   <div class="container">
     <ul class="action-link">
-      <router-link v-if="authStore.token" to="/profile">PROFILE</router-link>
+      <li>FEEDBACK</li>
+      <!-- <router-link v-if="authStore.token" to="/profile">PROFILE</router-link> -->
       <router-link v-if="!authStore.token" to="/login">LOGIN</router-link>
       <router-link v-if="!authStore.token" to="/sign-up">SIGNUP</router-link>
-      <li v-if="authStore.token" @click="onLogout">LOGOUT</li>
+      <!-- <li v-if="authStore.token" @click="onLogout">LOGOUT</li> -->
     </ul>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { useAuth } from '@/stores/auth'
-import { useRouter, RouterLink } from 'vue-router'
+import { RouterLink } from 'vue-router'
 const authStore = useAuth()
-const router = useRouter()
+// const router = useRouter()
 
-function onLogout() {
-  authStore.handleLogout()
-  router.push('/')
-}
+// function onLogout() {
+//   authStore.handleLogout()
+//   router.push('/')
+// }
 </script>
 
 <style scoped>

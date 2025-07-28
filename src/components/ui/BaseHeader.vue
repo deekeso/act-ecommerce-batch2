@@ -8,10 +8,16 @@
       <div class="search-bar-form">
         <search-bar />
       </div>
-      <router-link to="/cart" class="cart" role="button">
-        <el-icon :size="30"><ShoppingCart /></el-icon>
-        <p>Cart</p>
-      </router-link>
+      <div class="flex-links">
+        <router-link to="/profile" class="link" v-if="authStore.token">
+          <el-icon :size="20"><User /></el-icon>
+          <!-- <p>Profile</p> -->
+        </router-link>
+        <router-link to="/cart" class="link" role="button">
+          <el-icon :size="20"><ShoppingCart /></el-icon>
+          <!-- <p>Cart</p> -->
+        </router-link>
+      </div>
     </nav>
   </header>
 </template>
@@ -20,11 +26,24 @@
 import TheActionLinks from './ActionLinks.vue'
 import { SearchBar } from '@/components'
 import { ElIcon } from 'element-plus'
-import { ShoppingCart } from '@element-plus/icons-vue'
+import { ShoppingCart, User } from '@element-plus/icons-vue'
 import { RouterLink } from 'vue-router'
+import { useAuth } from '@/stores/auth'
+
+const authStore = useAuth()
 </script>
 
 <style scoped>
+.flex-links {
+  display: flex;
+  align-content: center;
+  gap: 12px;
+}
+
+.flex-links a {
+  padding: 10px;
+}
+
 /* fixed header position */
 .header {
   display: flex;
@@ -47,8 +66,8 @@ import { RouterLink } from 'vue-router'
   color: #000;
 }
 
-/* cart */
-.cart {
+/* links */
+.link {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -56,7 +75,7 @@ import { RouterLink } from 'vue-router'
   cursor: pointer;
 }
 
-.search-bar-form{
+.search-bar-form {
   width: 500px;
 }
 

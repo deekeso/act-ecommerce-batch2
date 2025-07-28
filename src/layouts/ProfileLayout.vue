@@ -4,10 +4,11 @@
       <aside class="sidebar">
         <h1>Account Settings</h1>
         <router-link to="/profile" exact-active-class="active">My Profile</router-link>
-        <router-link to="/account-security" exact-active-class="active">Account Security</router-link>
+        <router-link to="/account-security" exact-active-class="active">Manage Account</router-link>
         <router-link to="/order" exact-active-class="active">Purchase History</router-link>
+        <router-link to="/logout" exact-active-class="active">Logout</router-link>
       </aside>
-      
+
       <main class="content">
         <slot name="default" />
       </main>
@@ -63,11 +64,10 @@ import { RouterLink } from 'vue-router'
   padding: 20px;
   border-radius: 8px;
   /* box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); */
-
 }
 
 @media (max-width: 768px) {
-  .container{
+  .container {
     height: 100%;
   }
   .account-settings {
