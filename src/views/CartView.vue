@@ -37,7 +37,7 @@
         <p>Shipping Fee: {{ formatPrice(100) }}</p>
         <p class="total-amount">
           Total Price:
-          {{ formatPrice(cartStore.getAllSelectedCartItems.length > 0 ? cartStore.getSelectedTotalPrice + 100 : 0)}}
+          {{ formatPrice(cartStore.getAllSelectedCartItems.length > 0 ? cartStore.getSelectedTotalPrice + 100 : 0) }}
         </p>
         <el-button size="large" class="checkout-button" @click="handleCheckout()"> Proceed to Checkout &rarr;</el-button>
       </el-card>
@@ -155,21 +155,19 @@ onMounted(() => {
 :deep(.el-checkbox.el-checkbox--large.is-checked .el-checkbox__inner) {
   background-color: var(--primary-black);
   border-color: var(--primary-black);
-  /* You can add box-shadow or something else here */
 }
 
 /* Change the check icon color */
 :deep(.el-checkbox.el-checkbox--large.is-checked .el-checkbox__inner::after) {
   border-color: white;
   position: absolute;
-  left: 7px; /* tweak to center */
-  top: 2px; /* tweak to center */
-  width: 4px; /* bigger width */
-  height: 12px; /* bigger height */
+  left: 7px;
+  top: 2px;
+  width: 4px;
+  height: 12px;
   box-sizing: content-box;
-  border-width: 0 3px 3px 0; /* this creates the check shape */
+  border-width: 0 3px 3px 0;
 }
-
 
 @media (max-width: 1024px) {
   .grid {
