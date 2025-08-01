@@ -1,6 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Crete+Round:ital@0;1&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  --el-color-primary: #86ceb5;
+  --el-color-primary-dark-2: #86ceb5;
+  --el-color-primary-light-3: #c4e4d5;
+  --el-color-primary-light-5: #c4e4d5;
+  --el-color-primary-light-7: #c4e4d5;
+  --el-color-primary-light-8: #c4e4d5;
+  --el-color-primary-light-9: #c4e4d5;
+}
+
 :root {
   --teal: #86ceb5;
   --offwhite: #fefbf2;
@@ -9,6 +22,7 @@
   --brown: #eec263;
   --chocolate: #553a00;
   --darkchocolate: #342626;
+  --gray: #a8abb2;
   --font-header: 'Crete Round', serif;
   --font-body: 'Lato', sans-serif;
 }
@@ -39,38 +53,7 @@ body {
     240px 240px;
   font-family: var(--font-body);
   color: var(--darkchocolate);
-}
-
-/* Sharp corners for all Element Plus components for styling */
-:root {
-  --el-border-radius-base: 0 !important;
-  --el-border-radius-small: 0 !important;
-  --el-border-radius-round: 0 !important;
-}
-
-/* Override component styles for sharp corners */
-.el-button,
-.el-input__wrapper,
-.el-textarea__wrapper,
-.el-select-dropdown,
-.el-card,
-.el-menu,
-.el-menu-item,
-.el-dialog,
-.el-message-box,
-.el-notification,
-.el-tag,
-.el-badge,
-.el-pagination button,
-.el-pagination .el-input__wrapper,
-.el-tabs__nav,
-.el-tabs__item,
-.el-collapse-item__header,
-.el-collapse-item__content,
-.el-timeline-item__node,
-.el-dropdown-menu,
-.el-tooltip__popper {
-  border-radius: 0 !important;
+  line-height: 1.5;
 }
 
 .app {

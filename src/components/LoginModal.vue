@@ -5,6 +5,7 @@
       :close-on-click-modal="false"
       width="50%"
       @close="handleClose"
+      title="Login"
     >
       <div class="login-form">
         <el-form :model="loginForm">
@@ -32,6 +33,8 @@
               native-type="submit"
               @click="handleLogin"
               :loading="isLoading"
+              type="primary"
+              round
               class="submit-button"
             >
               LOGIN
@@ -53,10 +56,102 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
+import { ref, defineProps, defineEmits, watch } from 'vue'
+import { ElMessage } from 'element-plus'
 import { Message, Lock } from '@element-plus/icons-vue'
+import { useUserStore } from '@/stores/user'
 
-export default {}
+const props = defineProps({
+  visible: {
+    type: Boolean,
+    default: false,
+  },
+})
+
+const emit = defineEmits([
+  'update:visible',
+  'switch-to-register',
+  'switch-to-forgot-password',
+  'login-success',
+])
+
+const userStore = useUserStore()
+const isLoading = ref(false)
+
+const loginForm = ref({
+  email: '',
+  password: '',
+})
+
+const dialogVisible = ref(props.visible)
+
+// Watch for changes in visible prop
+// These functions are now handled directly in the watch functions
+
+// Watch for changes in props.visible
+watch(
+  () => props.visible,
+  (newVal) => {
+    dialogVisible.value = newVal
+  },
+)
+
+// Watch for changes in dialogVisible
+watch(dialogVisible, (newVal) => {
+  emit('update:visible', newVal)
+})
+
+const handleLogin = async () => {
+  if (!loginForm.value.email || !loginForm.value.password) {
+    ElMessage.error('Please enter both email and password')
+    return
+  }
+
+  // Validate email format
+  const emailPattern =
+    /^[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?$/
+  if (!emailPattern.test(loginForm.value.email)) {
+    ElMessage.error('Please enter a valid email address')
+    return
+  }
+
+  isLoading.value = true
+
+  try {
+    // Simulate API call
+    await new Promise((resolve) => setTimeout(resolve, 1000))
+
+    const success = await userStore.login(loginForm.value.email, loginForm.value.password)
+
+    if (success) {
+      ElMessage.success('Login successful!')
+      emit('login-success')
+      handleClose()
+    } else {
+      ElMessage.error('Invalid phone number or password')
+    }
+  } catch (error) {
+    ElMessage.error('An error occurred during login')
+    console.error(error)
+  } finally {
+    isLoading.value = false
+  }
+}
+
+const switchToRegister = () => {
+  emit('switch-to-register')
+}
+
+const switchToForgotPassword = () => {
+  emit('switch-to-forgot-password')
+}
+
+const handleClose = () => {
+  loginForm.value.email = ''
+  loginForm.value.password = ''
+  dialogVisible.value = false
+}
 </script>
 
 <style scoped>
@@ -70,25 +165,23 @@ export default {}
   font-size: 0.875rem;
 }
 
-.a {
+a {
   color: var(--teal);
   text-decoration: none;
   transition: color 0.2s;
 }
 
-.a:hover {
+a:hover {
   color: var(--mint);
   text-decoration: underline;
 }
 
 .form-footer {
   text-align: center;
-  margin-top: 1rem;
   font-size: 0.875rem;
 }
 
 .submit-button {
   width: 100%;
-  color: var(--teal);
 }
 </style>

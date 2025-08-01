@@ -5,6 +5,7 @@
       :close-on-click-modal="false"
       width="50%"
       @close="handleClose"
+      title="Register"
     >
       <div class="register-form">
         <h3>Account</h3>
@@ -44,11 +45,7 @@
           <div class="address-selector">
             <el-form label-position="top">
               <el-form-item label="Region" prop="region">
-                <el-select
-                  @change="handleRegionChange"
-                  v-model="registrationForm.address.region"
-                  placeholder="Select Region"
-                >
+                <el-select v-model="registrationForm.address.region" placeholder="Select Region">
                   <el-option
                     v-for="region in regionsList"
                     :key="region.region_code"
@@ -60,7 +57,6 @@
 
               <el-form-item label="Province" prop="province">
                 <el-select
-                  @change="handleProvinceChange"
                   v-model="registrationForm.address.province"
                   placeholder="Select Province"
                   :disabled="!registrationForm.address.region"
@@ -76,7 +72,6 @@
 
               <el-form-item label="City/Municipality" prop="city">
                 <el-select
-                  @change="handleCityChange"
                   v-model="registrationForm.address.city"
                   placeholder="Select City/Municipality"
                   :disabled="!registrationForm.address.province"
@@ -104,12 +99,29 @@
                   ></el-option>
                 </el-select>
               </el-form-item>
+
+              <el-form-item label="Street Address">
+                <el-input
+                  v-model="registrationForm.address.street"
+                  placeholder="House/Unit Number, Building, Street Name"
+                  type="textarea"
+                  :rows="2"
+                />
+              </el-form-item>
+
+              <el-form-item>
+                <el-button
+                  type="primary"
+                  round
+                  @click="handleRegister"
+                  :loading="isLoading"
+                  class="submit-button"
+                >
+                  REGISTER
+                </el-button>
+              </el-form-item>
             </el-form>
           </div>
-
-          <el-button @click="handleRegister" :loading="isLoading" class="submit-button">
-            REGISTER
-          </el-button>
 
           <div class="form-footer">
             <p>Already have an account? <a href="#" @click.prevent="switchToLogin">Login</a></p>
@@ -120,8 +132,124 @@
   </div>
 </template>
 
-<script lang="ts">
-export default {}
+<script setup lang="ts">
+import { ref, watch, reactive } from 'vue'
+import { ElMessage } from 'element-plus'
+import { User, Message, Lock } from '@element-plus/icons-vue'
+import { useUserStore } from '@/stores/user'
+import { useAddress } from '../composables/useAddress'
+
+const props = defineProps({
+  visible: {
+    type: Boolean,
+    default: false,
+  },
+})
+
+const emit = defineEmits(['update:visible', 'switch-to-login', 'register-success'])
+
+const userStore = useUserStore()
+const { addressForm, regionsList, provincesList, citiesList, barangaysList, resetAddress } =
+  useAddress()
+const isLoading = ref(false)
+const dialogVisible = ref(props.visible)
+
+// Watch for changes in props.visible
+watch(
+  () => props.visible,
+  (newVal) => {
+    dialogVisible.value = newVal
+  },
+)
+
+// Watch for changes in dialogVisible
+watch(dialogVisible, (newVal) => {
+  emit('update:visible', newVal)
+})
+
+// Registration form
+const registrationForm = reactive({
+  name: '',
+  email: '',
+  password: '',
+
+  address: addressForm,
+})
+
+const handleRegister = async () => {
+  // Validate form
+  if (!registrationForm.name || !registrationForm.email || !registrationForm.password) {
+    ElMessage.error('Please fill in all required fields')
+    return
+  }
+
+  // Validate email format
+  const emailPattern =
+    /^[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?$/
+  if (!emailPattern.test(registrationForm.email)) {
+    ElMessage.error('Please enter a valid email address')
+    return
+  }
+
+  if (
+    !registrationForm.address.region ||
+    !registrationForm.address.province ||
+    !registrationForm.address.city ||
+    !registrationForm.address.barangay ||
+    !registrationForm.address.street
+  ) {
+    ElMessage.error('Please complete your address information')
+    return
+  }
+
+  isLoading.value = true
+
+  try {
+    // Simulate API call
+    await new Promise((resolve) => setTimeout(resolve, 1000))
+
+    // Create user object with display names
+    const user = {
+      name: registrationForm.name,
+      email: registrationForm.email,
+
+      address: {
+        region: registrationForm.address.region,
+        province: registrationForm.address.province,
+        city: registrationForm.address.city,
+        barangay: registrationForm.address.barangay,
+        street: registrationForm.address.street,
+      },
+    }
+
+    // Register user
+    await userStore.register(user, registrationForm.password)
+
+    ElMessage.success('Registration successful!')
+    emit('register-success')
+    handleClose()
+  } catch (error) {
+    ElMessage.error('An error occurred during registration')
+    console.error(error)
+  } finally {
+    isLoading.value = false
+  }
+}
+
+const switchToLogin = () => {
+  emit('switch-to-login')
+}
+
+const handleClose = () => {
+  // Reset form
+  registrationForm.name = ''
+  registrationForm.email = ''
+  registrationForm.password = ''
+
+  resetAddress()
+
+  dialogVisible.value = false
+}
 </script>
 
 <style scoped>
@@ -155,6 +283,5 @@ export default {}
 
 .submit-button {
   width: 100%;
-  color: var(--teal);
 }
 </style>

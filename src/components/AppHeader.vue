@@ -1,69 +1,86 @@
 <template>
   <header class="app-header">
+    <!-- Top banner -->
+    <div class="banner">
+      <el-button disabled link size="small"> FEEDBACK </el-button>
+      <el-button disabled link size="small"> CUSTOMER CARE </el-button>
+
+      <el-dropdown placement="bottom" size="small" v-if="userStore.isLoggedIn" trigger="click">
+        <el-button link size="small"> MY ACCOUNT </el-button>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item @click="router.push('/profile')">My Profile</el-dropdown-item>
+            <el-dropdown-item @click="router.push('/orders')">My Orders</el-dropdown-item>
+            <el-dropdown-item divided @click="showLogoutConfirmation = true"
+              >Logout</el-dropdown-item
+            >
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
+
+      <el-button v-else @click="showLoginModal = true" link size="small"> LOGIN </el-button>
+    </div>
+
     <div class="header-container">
-      <!-- Top banner -->
-      <div class="banner">
-        <el-button disabled link size="small"> FEEDBACK </el-button>
-        <el-button disabled link size="small"> CUSTOMER CARE </el-button>
-
-        <el-dropdown placement="bottom" size="small" v-if="userStore.isLoggedIn" trigger="click">
-          <el-button link> MY ACCOUNT </el-button>
-          <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item @click="router.push('/profile')">My Profile</el-dropdown-item>
-              <el-dropdown-item @click="router.push('/orders')">My Orders</el-dropdown-item>
-              <el-dropdown-item divided @click="userStore.logout">Logout</el-dropdown-item>
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown>
-
-        <el-button v-else @click="showLoginModal = true" link size="small"> LOGIN </el-button>
-      </div>
-
       <!-- Menu -->
-      <div class="menu">
-        <div class="logo">
-          <router-link to="/">
-            <img src="@/assets/logo.svg" alt="Digidelights" class="logo-img" />
-          </router-link>
-        </div>
+      <el-row :gutter="10" :align="'middle'" :justify="'space-between'">
+        <el-col :span="6">
+          <div class="logo">
+            <router-link to="/">
+              <img src="@/assets/logo.svg" alt="Digidelights" class="logo-img" />
+            </router-link>
+          </div>
+        </el-col>
 
-        <div class="search-bar">
-          <el-form @submit.prevent="handleSearch()" size="large">
-            <el-autocomplete
-              v-model="searchQuery"
-              :fetch-suggestions="querySearch"
-              :trigger-on-focus="false"
-              clearable
-              class="searchBar"
-              popper-class="searchSuggestions"
-              placeholder="Search for your favorites"
-              @select="handleSelect"
-            >
-              <template #default="{ item }">
-                <div class="autocomplete-item">
-                  <el-image :src="item.image" :fit="cover" alt="item.name" class="product-img" />
-                  <span>{{ item.name }}</span>
-                </div>
-              </template>
-            </el-autocomplete>
-            <el-button :icon="Search" native-type="submit" size="large" />
-            <template #append></template>
-          </el-form>
-        </div>
+        <el-col :span="16">
+          <div class="search-bar">
+            <el-form @submit.prevent="handleSearch()" size="large">
+              <el-autocomplete
+                v-model="searchQuery"
+                :fetch-suggestions="querySearch"
+                :trigger-on-focus="false"
+                clearable
+                class="searchBar"
+                popper-class="searchSuggestions"
+                placeholder="Search for your favorites"
+                @select="handleSelect"
+              >
+                <template #default="slotProps">
+                  <div v-if="slotProps && slotProps.item" class="autocomplete-item">
+                    <el-image
+                      :src="slotProps.item.image"
+                      :fit="'cover'"
+                      alt="product-img"
+                      class="product-img"
+                    />
+                    <span>{{ slotProps.item.label }}</span>
+                  </div>
+                </template>
+              </el-autocomplete>
+              <el-button
+                :icon="Search"
+                native-type="submit"
+                size="large"
+                color="var(--chocolate)"
+              />
+            </el-form>
+          </div>
+        </el-col>
 
-        <div class="header-cart">
-          <router-link to="/cart" class="cart-link">
-            <el-badge
-              :value="cartStore.itemCount"
-              :hidden="cartStore.itemCount === 0"
-              class="cart-badge"
-            >
-              <el-button :icon="ShoppingCart" size="large" />
-            </el-badge>
-          </router-link>
-        </div>
-      </div>
+        <el-col :span="2">
+          <div class="header-cart">
+            <router-link to="/cart" class="cart-link">
+              <el-badge
+                :value="cartStore.itemCount"
+                :hidden="cartStore.itemCount === 0"
+                class="cart-badge"
+              >
+                <el-button :icon="ShoppingCart" size="large" />
+              </el-badge>
+            </router-link>
+          </div>
+        </el-col>
+      </el-row>
     </div>
 
     <!-- Login Modal -->
@@ -86,10 +103,120 @@
       v-model:visible="showForgotPasswordModal"
       @switch-to-login="switchToLogin"
     />
+
+    <!-- Logout Confirmation Modal -->
+    <ConfirmationModal
+      v-model:show="showLogoutConfirmation"
+      title="Confirm Logout"
+      message="Are you sure you want to logout?"
+      confirm-button-text="Logout"
+      @confirm="handleLogout"
+    />
   </header>
 </template>
 
-<script lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useCartStore } from '@/stores/cart'
+import { useUserStore } from '@/stores/user'
+import { useProductStore } from '@/stores/product'
+import { ElMessage } from 'element-plus'
+import { Search, ShoppingCart } from '@element-plus/icons-vue'
+import LoginModal from './LoginModal.vue'
+import RegisterModal from './RegistrationModal.vue'
+import ForgotPasswordModal from './ForgotPasswordModal.vue'
+import ConfirmationModal from './ConfirmationModal.vue'
+
+const router = useRouter()
+const cartStore = useCartStore()
+const userStore = useUserStore()
+const productStore = useProductStore()
+const searchQuery = ref('')
+
+// Modal visibility states
+const showLoginModal = ref(false)
+const showRegisterModal = ref(false)
+const showForgotPasswordModal = ref(false)
+const showLogoutConfirmation = ref(false)
+
+// Search functionality
+const querySearch = (query: string, cb: (results: any[]) => void) => {
+  if (query.length === 0) {
+    cb([])
+    return
+  }
+
+  const queryLower = query.toLowerCase()
+  const results = productStore.products
+    .filter((product) => {
+      return (
+        product.name.toLowerCase().includes(queryLower) ||
+        product.description.toLowerCase().includes(queryLower) ||
+        product.category.toLowerCase().includes(queryLower)
+      )
+    })
+    .map((product) => ({
+      value: product.name,
+      label: product.name,
+      image: product.image,
+      id: product.id,
+    }))
+    .slice(0, 4) // Limit to 4 results for better UX
+
+  cb(results)
+}
+
+const handleSelect = (item: { id: number }) => {
+  router.push(`/product/${item.id}`)
+}
+
+const handleSearch = () => {
+  if (searchQuery.value.trim()) {
+    router.push({
+      path: '/products',
+      query: { search: searchQuery.value },
+    })
+  }
+}
+
+// Switch between login and register modals
+const switchToRegister = () => {
+  showLoginModal.value = false
+  showForgotPasswordModal.value = false
+  showRegisterModal.value = true
+}
+
+const switchToForgotPassword = () => {
+  showLoginModal.value = false
+  showRegisterModal.value = false
+  showForgotPasswordModal.value = true
+}
+
+const switchToLogin = () => {
+  showRegisterModal.value = false
+  showForgotPasswordModal.value = false
+  showLoginModal.value = true
+}
+
+// Handle successful login/register
+const handleLoginSuccess = () => {
+  ElMessage.success(`Welcome back, ${userStore.user?.name || 'User'}!`)
+  showLoginModal.value = false
+}
+
+const handleRegisterSuccess = () => {
+  ElMessage.success('Registration successful! Welcome to Digidelights')
+  showRegisterModal.value = false
+}
+
+// Handle logout confirmation
+const handleLogout = () => {
+  userStore.logout()
+  ElMessage.success('You have been logged out')
+  router.push('/')
+}
+</script>
 
 <style scoped>
 .app-header {
@@ -104,8 +231,6 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 15px;
-  display: flex;
-  align-items: center;
 }
 
 .banner {
@@ -118,40 +243,40 @@
 
 .banner :deep(.el-button) {
   color: white;
-}
-
-.menu {
-  display: flex;
-  margin: 0 auto;
-  padding: 15px;
-  align-items: center;
+  --el-button-hover-color: var(--brown);
+  --el-button-active-color: var(--brown);
 }
 
 .logo {
-  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .logo-img {
-  height: 70px;
+  height: 80px;
 }
 
 .search-bar {
+  margin-left: 20px;
   flex: 1;
-  max-width: 600px;
-  margin: 0 20px;
 }
 
-.search-bar :deep(.el-autocomplete) {
+.search-bar form {
+  display: flex;
+  align-items: center;
+}
+
+/* .search-bar :deep(.el-input) {
   --el-input-focus-border-color: var(--mint);
   --el-input-active-border-color: var(--mint);
-}
+} */
 
-.search-bar :deep(.el-button) {
+/* .search-bar :deep(.el-button) {
   background-color: var(--chocolate);
   color: white;
   --el-button-focus-border-color: var(--chocolate);
+  --el-button-hover-bg-color: var(--brown);
   --el-button-active-border-color: var(--brown);
-}
+} */
 
 .searchSuggestions {
   background-color: var(--teal);
