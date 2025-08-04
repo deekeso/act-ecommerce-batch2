@@ -1,12 +1,7 @@
 <template>
   <div class="order-list">
     <div class="order-card" v-for="item in currentItem" :key="item?.id">
-      <el-image 
-        :src="item?.image" 
-        fit="cover" 
-        :lazy="true" 
-        style="width: 100px; height: 100px; border-radius: 12px" 
-      />
+      <el-image :src="item?.image" fit="cover" :lazy="true" style="width: 100px; height: 100px; border-radius: 12px" />
       <div class="order-card-body">
         <p>{{ item?.label }}</p>
         <p>
@@ -19,20 +14,18 @@
 </template>
 
 <script setup lang="ts">
-import { useCart } from "@/stores/carts";
-import { useUtils } from "@/composables/useUtils";
-import { computed } from "vue";
+import { useCart } from '@/stores/carts'
+import { useUtils } from '@/composables/useUtils'
+import { computed } from 'vue'
 
-const cartStore = useCart();
-const { formatPrice } = useUtils();
+const cartStore = useCart()
+const { formatPrice } = useUtils()
 
-const buyNowItem = computed(() => cartStore.getBuyNowItems);
-const isBuyNowMode = computed(() => buyNowItem.value !== null && Object.keys(buyNowItem.value).length > 0);
+const buyNowItem = computed(() => cartStore.getBuyNowItems)
+const isBuyNowMode = computed(() => buyNowItem.value !== null && Object.keys(buyNowItem.value).length > 0)
 
 // Decide what to render based on Buy Now mode
-const currentItem = computed(() =>
-  isBuyNowMode.value ? [buyNowItem.value] : cartStore.getAllSelectedCartItems
-);
+const currentItem = computed(() => (isBuyNowMode.value ? [buyNowItem.value] : cartStore.getAllSelectedCartItems))
 </script>
 
 <style scoped>
@@ -46,8 +39,7 @@ const currentItem = computed(() =>
 }
 
 .order-list {
-  height: 100%;
-  min-height: 620px;
+  height: 620px;
   position: relative;
   overflow-y: scroll;
 }
