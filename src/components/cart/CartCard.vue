@@ -11,7 +11,11 @@
       <p class="item-desc line-clamp">{{ props.description }}</p>
       <p class="price-tag">{{ totalPrice }}</p>
       <el-input-number v-model="quantity" :min="1" :max="100" />
-      <el-button class="top-right" @click="handleRemove()">X</el-button>
+      <el-button class="top-right" type="danger" @click="handleRemove">
+        <el-icon>
+          <Delete />
+        </el-icon>
+      </el-button>
     </div>
   </div>
 </template>
@@ -52,25 +56,21 @@ function handleRemove() {
 // check if the quantity is over the stock
 watch(quantity, (newQuantity) => {
   if (newQuantity >= 100) {
-    ElMessageBox.confirm(
-      'You have exceeded the maximum number of  currently available in stock.',
-      'Warning',
-      {
-        confirmButtonClass: 'error',
-        confirmButtonText: 'yes',
-        type: 'error',
-      },
-    )
+    ElMessageBox.confirm('You have exceeded the maximum number of  currently available in stock.', 'Warning', {
+      confirmButtonClass: 'error',
+      confirmButtonText: 'Continue',
+      type: 'error',
+    })
   }
 })
 
 watch(quantity, (newQuantity) => {
   if (newQuantity <= 0 || !newQuantity) {
-    ElMessageBox.confirm(
-      `Are you sure you want to remove ${props.label} from the cart?`,
-      'warning',
-      { confirmButtonText: 'Yes', cancelButtonText: 'Cancel', type: 'warning' },
-    )
+    ElMessageBox.confirm(`Are you sure you want to remove ${props.label} from the cart?`, 'warning', {
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'Cancel',
+      type: 'warning',
+    })
       .then(() => {
         handleRemoveCartItem(props.id)
       })
