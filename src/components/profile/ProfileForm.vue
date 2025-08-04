@@ -55,6 +55,7 @@
 import { ref, reactive } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import { useValidators } from '@/composables/useValidators'
+import { useUtils } from '@/composables/useUtils'
 
 interface RuleForm {
   firstname?: string
@@ -81,6 +82,7 @@ const ruleForm = reactive<RuleForm>({
   contact: props.contact ?? '',
 })
 
+const { capitalizeEachWord } = useUtils()
 const { contactValidator, emailValidator, nameValidator, addressValidator } = useValidators()
 const emit = defineEmits(['on-submit', 'on-cancel'])
 
@@ -92,11 +94,20 @@ const rules = reactive<FormRules<RuleForm>>({
   address: [{ required: true, validator: addressValidator, trigger: 'blur' }],
 })
 
+const formattedFormValue = () => {
+  return {
+    ...ruleForm,
+    firstname: capitalizeEachWord(ruleForm.firstname ?? ''),
+    lastname: capitalizeEachWord(ruleForm.lastname ?? ''),
+    address: capitalizeEachWord(ruleForm.address ?? ''),
+  }
+}
+
 const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
   await formEl.validate((valid) => {
     if (valid) {
-      emit('on-submit', { ...ruleForm })
+      emit('on-submit', formattedFormValue())
     } else {
       console.log('failed to submit form data')
     }
