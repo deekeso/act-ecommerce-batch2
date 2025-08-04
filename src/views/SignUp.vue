@@ -36,4 +36,11 @@ function handleSubmit(formData: User) {
   justify-content: center;
   align-items: center;
 }
+
+@media (max-width: 400px) {
+  .container {
+    height: auto;
+    padding: 20px;
+  }
+}
 </style>
