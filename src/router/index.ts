@@ -5,7 +5,7 @@ import { ElMessage } from 'element-plus'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes,
+  routes: routes,
   scrollBehavior() {
     return { top: 0, left: 0 }
   },
