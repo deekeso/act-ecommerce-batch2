@@ -202,7 +202,9 @@ onUnmounted(() => {
       <div class="info-state__wrapper">
         <span class="info-state">{{
           forPhone
-            ? formatPhilippinePhone(authStore.getFormDataByProperty('signup', 'mobileNumber'))
+            ? formatPhilippinePhone(
+                authStore.getFormDataByProperty('signup', 'mobileNumber') as string,
+              )
             : authStore.getFormDataByProperty('login', 'email')
         }}</span>
         <el-button type="primary" link class="change-number-btn" @click="authStore.decrementStep()">

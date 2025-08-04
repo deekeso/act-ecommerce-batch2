@@ -43,6 +43,8 @@ export const useAuthStore = defineStore('auth', {
     getFormDataByProperty: (state) => (form: AuthMode, property: string) => {
       if (property === 'email' || property === 'password') {
         return state.loginData[property]
+      } else {
+        return state.signupData[property]
       }
     },
 
