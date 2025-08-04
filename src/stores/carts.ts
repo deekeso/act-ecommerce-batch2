@@ -20,6 +20,7 @@ export const useCart = defineStore('cart', {
     getSelectItems: (state) => state.cart.length > 0 && state.cart.every((item) => item.selectedItem),
     getAllSelectedCartItems: (state) => state.cart.filter((item) => item.selectedItem === true),
     getBuyNowItems: (state) => state.buyNowItem,
+    getSelectedItemLegnth: (state) => state.cart.filter((item) => item.selectedItem === true).length,
   },
 
   actions: {
