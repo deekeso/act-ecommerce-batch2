@@ -1,5 +1,6 @@
 import { ElNotification } from 'element-plus'
 import type { Variant } from '@/types'
+import { products } from '@/models'
 
 export const useUtils = () => {
   /**
@@ -71,5 +72,15 @@ export const useUtils = () => {
       .join(' ')
   }
 
-  return { formatPrice, toastMessage, truncateText, capitalizeFirstWord, capitalizeEachWord }
+  /**
+   * Randomly selects a given number of products from the full product list.
+   * @param count Number of random products to return.
+   * @returns An array of randomly selected product objects.
+   */
+  const getRandomProducts = (count: number) => {
+    const shuffled = [...products].sort(() => 0.5 - Math.random())
+    return shuffled.slice(0, count)
+  }
+
+  return { formatPrice, toastMessage, truncateText, capitalizeFirstWord, capitalizeEachWord, getRandomProducts }
 }

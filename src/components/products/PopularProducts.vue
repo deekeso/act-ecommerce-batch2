@@ -1,7 +1,7 @@
 <template>
   <div class="popular-items">
     <product-card
-      v-for="product in popularProducts"
+      v-for="product in products"
       :key="product.id"
       :id="product.id"
       :price="product.price"
@@ -15,8 +15,23 @@
 </template>
 
 <script lang="ts" setup>
-import { popularProducts } from '@/models'
+import { ref, onMounted, watch } from 'vue'
 import { ProductCard } from '@/components'
+import { useUtils } from '@/composables/useUtils'
+import type { Products } from '@/types'
+import { useRoute } from 'vue-router'
+
+const products = ref<Products[]>([])
+const route = useRoute()
+const { getRandomProducts } = useUtils()
+
+const regenerateProducts = () => {
+  products.value = getRandomProducts(8)
+}
+
+onMounted(regenerateProducts)
+
+watch(() => route.fullPath, regenerateProducts)
 </script>
 
 <style scoped>
