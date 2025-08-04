@@ -54,6 +54,9 @@ const handleSelect = (item: Record<string, any>) => {
 }
 
 const handleSearch = () => {
+  if (!searchInput.value) {
+    return
+  }
   router.push(`/search/${searchInput.value}`)
 }
 </script>
@@ -91,6 +94,4 @@ const handleSearch = () => {
   display: flex;
   justify-content: start;
 }
-
-
 </style>
