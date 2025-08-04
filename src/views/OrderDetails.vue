@@ -6,6 +6,7 @@
         <el-collapse-item title="Order Summary" name="1">
           <div style="padding: 20px">
             <h3>Delivery Information</h3>
+            <p>Order Id: {{ orderDetails?.id }}</p>
             <p>
               <span>Fullname: </span>
               {{ orderDetails?.address?.firstname }}
@@ -23,17 +24,17 @@
             VAT
             <span>{{ formatPrice(0) }}</span>
           </p> -->
-           <p class="flex-text">
+            <p class="flex-text">
               Sub Total
-              <span>{{ formatPrice((orderDetails?.totalPrice ?? 0)) }}</span>
+              <span>{{ formatPrice(orderDetails?.totalPrice ?? 0) }}</span>
             </p>
             <p class="flex-text">
               Total Amount
-              <span>{{ formatPrice((orderDetails?.totalPrice ?? 0) + (orderDetails?.shippingFee?? 0)) }}</span>
+              <span>{{ formatPrice((orderDetails?.totalPrice ?? 0) + (orderDetails?.shippingFee ?? 0)) }}</span>
             </p>
             <h3>Delivery Options</h3>
             <p>
-              {{ orderDetails?.shippingFee === 100 ? "Standard " : "Express " }}
+              {{ orderDetails?.shippingFee === 100 ? 'Standard ' : 'Express ' }}
               Delivery
             </p>
             <h3>Payment Method</h3>
@@ -41,11 +42,7 @@
           </div>
         </el-collapse-item>
         <el-collapse-item :title="`${orderTitle} Ordered`" name="2">
-          <div
-            class="order-card-wrapper"
-            v-for="order in orderDetails?.items"
-            :key="order.id"
-          >
+          <div class="order-card-wrapper" v-for="order in orderDetails?.items" :key="order.id">
             <el-image :src="order.image" fit="cover" :lazy="true" />
             <div class="order-card-body">
               <p>{{ order.label }}</p>
@@ -57,10 +54,7 @@
 
         <el-collapse-item title="Tracking Information" name="3">
           <div style="padding: 0 20px">
-            <time-line
-              :order-id="orderDetails?.id"
-              :status="orderDetails?.status"
-            />
+            <time-line :order-id="orderDetails?.id" :status="orderDetails?.status" />
           </div>
         </el-collapse-item>
       </el-collapse>
@@ -69,52 +63,50 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, watch, ref, computed } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { useOrder } from "@/stores/orders";
-import type { Order } from "@/types";
-import { ElMessage } from "element-plus";
-import { useUtils } from "@/composables/useUtils";
-import { TimeLine } from "@/components";
-import ProfileLayout from "@/layouts/ProfileLayout.vue";
+import { onMounted, watch, ref, computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { useOrder } from '@/stores/orders'
+import type { Order } from '@/types'
+import { ElMessage } from 'element-plus'
+import { useUtils } from '@/composables/useUtils'
+import { TimeLine } from '@/components'
+import ProfileLayout from '@/layouts/ProfileLayout.vue'
 
-const activeNames = ref(["1"]);
-const orderStore = useOrder();
-const route = useRoute();
-const router = useRouter();
-const orderDetails = ref<Partial<Order>>();
-const orderTitle = computed(() =>
-  (orderDetails.value?.items?.length ?? 0) > 1 ? "Items" : "Item"
-);
-const { formatPrice } = useUtils();
+const activeNames = ref(['1'])
+const orderStore = useOrder()
+const route = useRoute()
+const router = useRouter()
+const orderDetails = ref<Partial<Order>>()
+const orderTitle = computed(() => ((orderDetails.value?.items?.length ?? 0) > 1 ? 'Items' : 'Item'))
+const { formatPrice } = useUtils()
 
 function loadOrderDetails(id: string) {
-  orderDetails.value = orderStore.getOrderById(id);
+  orderDetails.value = orderStore.getOrderById(id)
 }
 
 onMounted(() => {
-  const orderId = route.params.id as string;
-  const isOwner = orderStore.doesCurrentUserOwnOrder(orderId);
+  const orderId = route.params.id as string
+  const isOwner = orderStore.doesCurrentUserOwnOrder(orderId)
 
   if (isOwner) {
-    loadOrderDetails(orderId);
+    loadOrderDetails(orderId)
   } else {
-    router.push("/");
-    ElMessage.error("Unauthorized Action!");
+    router.push('/')
+    ElMessage.error('Unauthorized Action!')
   }
-});
+})
 
 watch(
   () => route.params.id,
   (newId) => {
-    const isOwner = orderStore.doesCurrentUserOwnOrder(newId as string);
+    const isOwner = orderStore.doesCurrentUserOwnOrder(newId as string)
     if (isOwner) {
-      loadOrderDetails(newId as string);
+      loadOrderDetails(newId as string)
     } else {
-      ElMessage.error("Unauthorized Action!");
+      ElMessage.error('Unauthorized Action!')
     }
-  }
-);
+  },
+)
 </script>
 
 <style scoped>
