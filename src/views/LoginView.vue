@@ -31,9 +31,17 @@ function handleLogin(formData: User) {
 
 <style scoped>
 .container {
+  box-sizing: content-box;
   height: 70vh;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media (max-width: 400px) {
+  .container {
+    height: auto;
+    padding: 20px;
+  }
 }
 </style>
