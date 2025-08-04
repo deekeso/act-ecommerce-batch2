@@ -1,37 +1,21 @@
 <template>
   <profile-layout>
     <el-card shadow="never">
-      <h1 style="margin-bottom: 20px">Update Password</h1>
+      <template #header>
+        <h1 style="font-weight: bold">Update Password</h1>
+      </template>
 
-      <el-form
-        ref="formRef"
-        :model="form"
-        :rules="rules"
-        label-position="top"
-        @submit.prevent="onSubmit"
-      >
+      <el-form ref="formRef" :model="form" :rules="rules" label-position="top" @submit.prevent="onSubmit">
         <el-form-item label="New Password" prop="password">
-          <el-input
-            v-model="form.password"
-            type="password"
-            placeholder="Enter new password"
-            show-password
-          />
+          <el-input v-model="form.password" type="password" placeholder="Enter new password" show-password />
         </el-form-item>
 
-        <el-form-item label="Confirm Password" prop="confirmPassword" style="margin-top: 20px;">
-          <el-input
-            v-model="form.confirmPassword"
-            type="password"
-            placeholder="Confirm new password"
-            show-password
-          />
+        <el-form-item label="Confirm Password" prop="confirmPassword" style="margin-top: 20px">
+          <el-input v-model="form.confirmPassword" type="password" placeholder="Confirm new password" show-password />
         </el-form-item>
 
         <el-form-item>
-          <el-button color="black" native-type="submit" block style="margin-top: 20px;"> 
-            Update Password
-          </el-button>
+          <el-button color="black" native-type="submit" block style="margin-top: 20px"> Update Password </el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -55,8 +39,8 @@ const form = reactive({
 })
 
 const rules: FormRules = {
-  password: [{ validator: validateStrongPassword,  trigger: 'blur' },],
-  confirmPassword: [{ validator: matchPassword(() => form.password), trigger: 'blur' },],
+  password: [{ validator: validateStrongPassword, trigger: 'blur' }],
+  confirmPassword: [{ validator: matchPassword(() => form.password), trigger: 'blur' }],
 }
 
 function onSubmit() {
@@ -72,11 +56,15 @@ function onSubmit() {
 
 <style scoped>
 h1 {
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 600;
 }
 
-.el-input{
-    height: 50px;
+.el-input {
+  height: 50px;
+}
+
+.el-button {
+  height: 50px;
 }
 </style>
