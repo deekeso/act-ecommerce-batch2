@@ -1,5 +1,8 @@
 <template>
   <section id="banner" class="container">
+    <div class="search-bar-form">
+      <search-bar />
+    </div>
     <base-banner />
   </section>
 
@@ -12,9 +15,7 @@
 
   <section id="popular-products" class="container">
     <h2>Popular Products</h2>
-    <div class="search-bar-form">
-      <search-bar />
-    </div>
+
     <popular-products />
   </section>
   <div class="center">
@@ -31,13 +32,9 @@ import { RouterLink } from 'vue-router'
 <style scoped>
 .search-bar-form {
   width: 100%;
-  margin-bottom: 20px;
-}
-
-@media (min-width: 750px) {
-  .search-bar-form {
-    display: none;
-  }
+  padding: 0 20px;
+  margin: 20px 0;
+  box-sizing: border-box;
 }
 
 #banner {
@@ -99,6 +96,20 @@ h2 {
   justify-content: flex-start;
 }
 
+/* Optional: style the scrollbar */
+.category-list::-webkit-scrollbar {
+  height: 6px;
+}
+
+.category-list::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+  border-radius: 4px;
+}
+
+.category-list::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 @media (max-width: 768px) {
   .category-list {
     flex-wrap: nowrap;
@@ -112,17 +123,10 @@ h2 {
     flex: 0 0 auto;
   }
 }
-/* Optional: style the scrollbar */
-.category-list::-webkit-scrollbar {
-  height: 6px;
-}
 
-.category-list::-webkit-scrollbar-thumb {
-  background-color: #aaa;
-  border-radius: 4px;
-}
-
-.category-list::-webkit-scrollbar-thumb:hover {
-  background: #555;
+@media (min-width: 750px) {
+  .search-bar-form {
+    display: none;
+  }
 }
 </style>
