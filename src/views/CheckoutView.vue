@@ -16,13 +16,12 @@
           </el-radio-group>
           <div class="delivery-description">
             <p class="xs" v-if="deliveryOptions === 150">
-              Your package will be prioritized and delivered within 1 or 2
-              business days, ensuring you receive your items as quickly as
-              possible. Perfect for urgent orders or last-minute needs.
+              Your package will be prioritized and delivered within 1 or 2 business days, ensuring you receive your items as
+              quickly as possible.
             </p>
             <p class="xs" v-else-if="deliveryOptions === 100">
-              Our Standard Delivery offers reliable and cost-effective shipping.
-              Orders are typically delivered within 3 to 5 business days.
+              Our Standard Delivery offers reliable and cost-effective shipping. Orders are typically delivered within 3 to 5
+              business days.
             </p>
           </div>
         </el-card>
@@ -33,9 +32,7 @@
           <el-radio-group v-model="paymentOptions" size="large">
             <el-radio-button value="cash">Cash On Delivery</el-radio-button>
             <el-tooltip content="Not available" placement="top" effect="light">
-              <el-radio-button value="master-card" disabled
-                >Master Card</el-radio-button
-              >
+              <el-radio-button value="master-card" disabled>Master Card</el-radio-button>
             </el-tooltip>
             <el-tooltip content="Not available" placement="top" effect="light">
               <el-radio-button value="gcash" disabled>GCash</el-radio-button>
@@ -68,117 +65,122 @@
       <el-card shadow="never">
         <h1 style="position: sticky">Review Your Cart</h1>
         <review-card />
-        <summary-card
-          :delivery-options="deliveryOptions"
-          @on-checkout="handleCheckOut"
-        />
+        <summary-card :delivery-options="deliveryOptions" @on-checkout="handleCheckOut" />
       </el-card>
     </section>
   </main>
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from "vue";
-import { onBeforeRouteLeave } from "vue-router";
-import { ProfileForm, SummaryCard, ReviewCard } from "@/components";
-import { useCart } from "@/stores/carts";
-import { useRouter } from "vue-router";
-import { useOrder } from "@/stores/orders";
-import { ElMessage, ElMessageBox } from "element-plus";
-import { useAuth } from "@/stores/auth";
-import type { AddressRuleForm } from "@/types";
+import { ref, onMounted } from 'vue'
+import { onBeforeRouteLeave } from 'vue-router'
+import { ProfileForm, SummaryCard, ReviewCard } from '@/components'
+import { useCart } from '@/stores/carts'
+import { useRouter } from 'vue-router'
+import { useOrder } from '@/stores/orders'
+import { ElMessage, ElMessageBox } from 'element-plus'
+import { useAuth } from '@/stores/auth'
+import type { AddressRuleForm } from '@/types'
 
-const authStore = useAuth();
-const cartStore = useCart();
-const orderStore = useOrder();
-const paymentOptions = ref("cash");
-const deliveryOptions = ref(100);
-const router = useRouter();
-const currentUser = ref(authStore.user);
-const billingAddress = ref<AddressRuleForm>({});
-const checkOutIsActive = ref(false);
+const authStore = useAuth()
+const cartStore = useCart()
+const orderStore = useOrder()
+const paymentOptions = ref('cash')
+const deliveryOptions = ref(100)
+const router = useRouter()
+const currentUser = ref(authStore.user)
+const billingAddress = ref<AddressRuleForm>({})
+const checkOutIsActive = ref(false)
 
 // handle changes on profile
 function onProfileUpdate(formData: AddressRuleForm) {
-  if(!currentUser.value?.firstname || !currentUser.value?.lastname || !currentUser.value.contact || !currentUser.value?.address){
+  if (
+    !currentUser.value?.firstname ||
+    !currentUser.value?.lastname ||
+    !currentUser.value.contact ||
+    !currentUser.value?.address
+  ) {
     authStore.setProfile({ ...formData })
     billingAddress.value = { ...formData }
   } else {
-    ElMessage.success("Address is confirmed")
+    ElMessage.success('Address is confirmed')
     billingAddress.value = { ...formData }
   }
 }
 
 function handleCheckOut() {
-  const { firstname, lastname, contact, address } = billingAddress.value;
+  const { firstname, lastname, contact, address } = billingAddress.value
   if (!firstname || !lastname || !contact || !address) {
-    ElMessage.error("Please confirm you're shipping address");
-    return;
+    ElMessage.error("Please confirm you're shipping address")
+    return
   }
 
   const orderSummary = {
     totalPrice: cartStore.getSelectedTotalPrice,
     shippingFee: deliveryOptions.value,
-  };
-  const isEmptyObject = (obj: object) =>
-    obj && Object.keys(obj).length === 0 && obj.constructor === Object;
+  }
+  const isEmptyObject = (obj: object) => obj && Object.keys(obj).length === 0 && obj.constructor === Object
 
   if (cartStore.buyNowItem && !isEmptyObject(cartStore.buyNowItem)) {
     orderStore.placeOrder([cartStore.buyNowItem], billingAddress.value, {
       totalPrice: cartStore.buyNowItem.price * cartStore.buyNowItem.quantity,
       shippingFee: deliveryOptions.value,
-    });
-    cartStore.clearBuyNow();
-    checkOutIsActive.value = true;
+    })
+    cartStore.clearBuyNow()
+    checkOutIsActive.value = true
   } else {
-    orderStore.placeOrder(
-      cartStore.getAllSelectedCartItems,
-      billingAddress.value,
-      orderSummary
-    );
-    cartStore.removeCartItems();
-    checkOutIsActive.value = true;
+    orderStore.placeOrder(cartStore.getAllSelectedCartItems, billingAddress.value, orderSummary)
+    cartStore.removeCartItems()
+    checkOutIsActive.value = true
   }
-  router.push("/order");
+  router.push('/order')
 }
 
 onMounted(() => {
   // fetch the user selected items from the cart
-  cartStore.initializeCart();
+  cartStore.initializeCart()
 
   // set the default address
   billingAddress.value = {
     ...authStore.user,
-    address: authStore.user?.address || "",
-  };
+    address: authStore.user?.address || '',
+  }
 
-  const noItemsSelected = cartStore.getAllSelectedCartItems.length === 0;
-  const noBuyNow = cartStore.buyNowItem === null;
+  const noItemsSelected = cartStore.getAllSelectedCartItems.length === 0
+  const noBuyNow = cartStore.buyNowItem === null
 
   if (noItemsSelected && noBuyNow) {
-    ElMessage.error("Unauthorized Action");
-    router.push("/");
+    ElMessage.error('Unauthorized Action')
+    router.push('/')
   }
-});
+})
 
 onBeforeRouteLeave((to, from, next) => {
+  // Skip confirmation if user is logging out
+  if (to.name === 'Logout') {
+    next()
+    return
+  }
+
+  // Skip confirmation if user is already unauthenticated
+  if (!authStore.token) {
+    next()
+    return
+  }
+
   if (checkOutIsActive.value === false) {
-    ElMessageBox.confirm(
-      "Do you really want to leave? you have unsaved changes!",
-      "Warning",
-      { type: "warning" }
-    )
+    ElMessageBox.confirm('Do you really want to leave? you have unsaved changes!', 'Warning', { type: 'warning' })
       .then(() => {
-        cartStore.clearBuyNow();
-        next();
+        cartStore.clearBuyNow()
+        next()
       })
       .catch(() => {
-        next(false);
-      });
+        next(false)
+      })
   } else {
-    next();
+    next()
   }
-});
+})
 </script>
 
 <style scoped>
@@ -214,9 +216,7 @@ onBeforeRouteLeave((to, from, next) => {
   border-radius: 20px;
   box-sizing: content-box;
   position: relative;
-  
 }
-
 
 .el-radio-button {
   --el-radio-button-checked-bg-color: var(--primary-black);
@@ -238,5 +238,4 @@ onBeforeRouteLeave((to, from, next) => {
     --grid-cols: 1;
   }
 }
-
 </style>
