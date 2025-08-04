@@ -33,11 +33,20 @@
 
     <div class="checkout-form">
       <el-card shadow="never">
-        <h3 class="">Order Summary</h3>
-        <p>Shipping Fee: {{ formatPrice(100) }}</p>
-        <p class="total-amount">
+        <template #header>
+          <h3 class="">Order Summary</h3>
+        </template>
+        <p class="flex-text">
+          Shipping Fee: <span>{{ cartStore.getAllSelectedCartItems.length > 0 ? formatPrice(100) : formatPrice(0) }}</span>
+        </p>
+        <p class="flex-text">
+          SubTotal: <span>{{ formatPrice(cartStore.getSelectedTotalPrice) }}</span>
+        </p>
+        <p class="total-amount flex-text">
           Total Price:
-          {{ formatPrice(cartStore.getAllSelectedCartItems.length > 0 ? cartStore.getSelectedTotalPrice + 100 : 0) }}
+          <span>
+            {{ formatPrice(cartStore.getAllSelectedCartItems.length > 0 ? cartStore.getSelectedTotalPrice + 100 : 0) }}
+          </span>
         </p>
         <el-button size="large" class="checkout-button" @click="handleCheckout()"> Proceed to Checkout &rarr;</el-button>
       </el-card>
@@ -67,11 +76,17 @@ function handleSelectionChange(itemId: string, selected: boolean) {
 }
 
 function handleCheckout() {
-  if (cartStore.getAllSelectedCartItems.length <= 0) {
-    ElMessage.error('No Selected Item')
-  } else {
-    router.push('/checkout')
+  if (cartStore.getCartItems.length === 0) {
+    ElMessage.error('Your cart is empty')
+    return
   }
+
+  if (cartStore.getSelectedItemLegnth === 0) {
+    ElMessage.error('No selected items')
+    return
+  }
+
+  router.push('/checkout')
 }
 
 onMounted(() => {
@@ -81,6 +96,11 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.flex-text {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0px;
+}
 .grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
