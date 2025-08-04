@@ -3,7 +3,6 @@ import ProductDetails from '@/views/ProductDetailsView.vue'
 import Product from '@/views/ProductsView.vue'
 import MainLayout from '@/layouts/MainLayout.vue'
 import CartView from '@/views/CartView.vue'
-import AddressPage from '@/views/AddressView.vue'
 import CheckoutPage from '@/views/CheckoutView.vue'
 import LoginView from '@/views/LoginView.vue'
 import SignUpView from '@/views/SignUp.vue'
@@ -16,7 +15,7 @@ import SearchPage from '@/views/SearchPage.vue'
 import ForgotPassword from '@/views/ForgotPassword.vue'
 import Password from '@/views/Password.vue'
 
-import { useAuth } from '@/stores/auth'
+import { useProducts } from '@/stores/products'
 
 const routes = [
   {
@@ -58,15 +57,6 @@ const routes = [
         component: Password,
         meta: { requiresAuth: true },
       },
-      {
-        path: '/logout',
-        name: 'logout',
-        beforeEnter: (to, from, next) => {
-          const auth = useAuth()
-          auth.handleLogout()
-          next('/')
-        },
-      },
     ],
   },
   {
@@ -93,6 +83,15 @@ const routes = [
         path: ':id',
         name: 'product-details',
         component: ProductDetails,
+        beforeEnter: (to, from, next) => {
+          const productStore = useProducts()
+          const isValidUUID = productStore.getProductById(to.params.id)
+          if (isValidUUID) {
+            next()
+          } else {
+            next('/not-found')
+          }
+        },
       },
     ],
   },
@@ -116,18 +115,6 @@ const routes = [
         path: '',
         name: 'cart',
         component: CartView,
-        meta: { requiresAuth: true },
-      },
-    ],
-  },
-  {
-    path: '/address',
-    component: MainLayout,
-    children: [
-      {
-        path: '',
-        name: 'address',
-        component: AddressPage,
         meta: { requiresAuth: true },
       },
     ],
