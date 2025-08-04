@@ -3,6 +3,12 @@
     <div class="search-bar-form">
       <search-bar />
     </div>
+    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item :to="{ path: '/' }">Homepage</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/products' }">Products</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: `/category/${category}` }">{{ category }}</el-breadcrumb-item>
+    </el-breadcrumb>
+
     <h1>Products in "{{ category }}"</h1>
     <div v-if="filteredProducts.length > 0" class="product-card">
       <product-card
@@ -22,25 +28,23 @@
   </main>
 </template>
 
-
 <script lang="ts" setup>
-import { onMounted, ref, watch } from "vue";
-import { useRoute } from "vue-router";
-import { useProducts } from "@/stores/products"; // Adjust path if needed
-import type { Products } from "@/types";
-import { ProductCard, SearchBar } from "@/components";
+import { onMounted, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+import { useProducts } from '@/stores/products' // Adjust path if needed
+import type { Products } from '@/types'
+import { ProductCard, SearchBar } from '@/components'
 
-const route = useRoute();
-const category = ref(route.params.name as string);
+const route = useRoute()
+const category = ref(route.params.name as string)
 
-const productStore = useProducts();
-const filteredProducts = ref<Products[]>([]);
+const productStore = useProducts()
+const filteredProducts = ref<Products[]>([])
 
 function loadProductsByCategory() {
   filteredProducts.value = productStore.products.filter(
-    (product) =>
-      product.category?.toLowerCase() === category.value.toLowerCase()
-  );
+    (product) => product.category?.toLowerCase() === category.value.toLowerCase(),
+  )
   console.log(filteredProducts.value)
 }
 
@@ -48,22 +52,26 @@ function loadProductsByCategory() {
 watch(
   () => route.params.name,
   (newVal) => {
-    category.value = newVal as string;
-    loadProductsByCategory();
-  }
-);
+    category.value = newVal as string
+    loadProductsByCategory()
+  },
+)
 
 onMounted(() => {
-  loadProductsByCategory();
-});
+  loadProductsByCategory()
+})
 </script>
 
 <style scoped>
-.category-wrapper{
-   max-width: 1400px;
-   margin: 2rem auto;
-   height: 100%;
-   min-height: 80vh;
+.el-breadcrumb {
+  margin-bottom: 20px;
+}
+
+.category-wrapper {
+  max-width: 1400px;
+  margin: 2rem auto;
+  height: 100%;
+  min-height: 80vh;
 }
 
 .product-card {
@@ -72,18 +80,16 @@ onMounted(() => {
   gap: 24px;
 }
 
-.search-bar-form{
+.search-bar-form {
   width: 100%;
   margin-bottom: 20px;
 }
 
 @media (min-width: 750px) {
-  .search-bar-form{
+  .search-bar-form {
     display: none;
   }
 }
-
-
 
 @media (max-width: 1024px) {
   .product-card {
@@ -97,14 +103,14 @@ onMounted(() => {
   }
 }
 
-@media(min-width: 1400px){
-  .category-wrapper{
+@media (min-width: 1400px) {
+  .category-wrapper {
     padding: 0px;
   }
 }
 
-@media(min-width: 400px){
-  .category-wrapper{
+@media (min-width: 400px) {
+  .category-wrapper {
     padding: 20px;
   }
 }
