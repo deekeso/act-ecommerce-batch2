@@ -36,9 +36,7 @@
       </div>
 
       <div v-else class="product-container">
-        <el-row :gutter="60" class="product-details-card">
-          <el-col :xs="24" :sm="12">
-            <div class="product-breadcrumb">
+        <div class="product-breadcrumb">
               <el-breadcrumb separator="/">
                 <el-breadcrumb-item :to="{ path: '/' }">Home</el-breadcrumb-item>
                 <el-breadcrumb-item :to="{ path: '/products' }">Products</el-breadcrumb-item>
@@ -50,6 +48,9 @@
                 <el-breadcrumb-item>{{ product.name }}</el-breadcrumb-item>
               </el-breadcrumb>
             </div>
+
+        <el-row :gutter="40" class="product-details-card">
+          <el-col :xs="24" :sm="12">
             <div class="product-image-section">
               <el-image
                 :src="product.image"
@@ -222,7 +223,7 @@ onMounted(() => {
   font-family: var(--font-header);
   font-weight: normal;
   color: var(--teal);
-  margin: 36px 0 0px;
+  margin: 12px 0 0px;
 }
 
 .product-price {

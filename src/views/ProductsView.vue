@@ -1,4 +1,7 @@
 <template>
+  <div>
+    <el-image style="width: 100%;" :src="test" :fit="'cover'" />
+  </div>
   <div class="product-page">
     <div class="page-header">
       <h1>Our Products</h1>
@@ -78,6 +81,7 @@ import ProductCard from '@/components/ProductCard.vue'
 import { useProductStore } from '@/stores/product'
 import { useFormatting } from '@/composables/useFormatting'
 import type { Product } from '@/stores/cart'
+import test from '@/images/3.png'
 
 const route = useRoute()
 const router = useRouter()
@@ -173,7 +177,7 @@ const applyFilters = () => {
 
 <style scoped>
 .product-page {
-  padding: 50px;
+  padding: 30px 50px 50px;
 }
 
 .page-header {
