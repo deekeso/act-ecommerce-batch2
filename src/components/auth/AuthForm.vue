@@ -1,45 +1,45 @@
 <template>
   <el-card shadow="never">
     <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" @submit.prevent="submitForm(ruleFormRef)">
-    <h1 class="heading">{{ title }}</h1>
-    <el-form-item label="Email" prop="email" label-position="top">
-      <el-input v-model="ruleForm.email" placeholder="Enter your email" clearable prefix-icon="User" size="large" />
-    </el-form-item>
-    <el-form-item label="Password" prop="password" label-position="top">
-      <el-input
-        v-model="ruleForm.password"
-        type="password"
-        show-password
-        placeholder="Enter your password"
-        clearable
-        prefix-icon="Lock"
-        size="large"
-      />
-    </el-form-item>
-    <el-form-item v-if="mode === 'signup'" label="Confirm Password" prop="confirmPassword" label-position="top">
-      <el-input
-        v-model="ruleForm.confirmPassword"
-        type="password"
-        show-password
-        placeholder="Confirm your password"
-        clearable
-        prefix-icon="Lock"
-        size="large"
-      />
-    </el-form-item>
-    <div class="justify-end">
-      <router-link v-if="mode === 'login'" to="/forgot-password">Forgot Password?</router-link>
-    </div>
-    <el-button color="black" native-type="submit" size="large">
-      {{ btnLabel }}
-    </el-button>
-    <router-link v-if="mode === 'login'" class="justify-center" to="/sign-up" style="margin-top: 20px">
-      Don't have an Account? <span style="margin-left: 4px">Sign up</span>
-    </router-link>
-    <router-link v-if="mode === 'signup'" class="justify-center" to="/login" style="margin-top: 20px"
-      >Already have an account? Login</router-link
-    >
-  </el-form>
+      <h1 class="heading">{{ title }}</h1>
+      <el-form-item label="Email" prop="email" label-position="top">
+        <el-input v-model="ruleForm.email" placeholder="Enter your email" clearable prefix-icon="User" size="large" />
+      </el-form-item>
+      <el-form-item label="Password" prop="password" label-position="top">
+        <el-input
+          v-model="ruleForm.password"
+          type="password"
+          show-password
+          placeholder="Enter your password"
+          clearable
+          prefix-icon="Lock"
+          size="large"
+        />
+      </el-form-item>
+      <el-form-item v-if="mode === 'signup'" label="Confirm Password" prop="confirmPassword" label-position="top">
+        <el-input
+          v-model="ruleForm.confirmPassword"
+          type="password"
+          show-password
+          placeholder="Confirm your password"
+          clearable
+          prefix-icon="Lock"
+          size="large"
+        />
+      </el-form-item>
+      <div class="justify-end">
+        <router-link v-if="mode === 'login'" to="/forgot-password">Forgot Password?</router-link>
+      </div>
+      <el-button color="black" native-type="submit" size="large">
+        {{ btnLabel }}
+      </el-button>
+      <router-link v-if="mode === 'login'" class="justify-center" to="/sign-up" style="margin-top: 20px">
+        Don't have an Account? <span style="margin-left: 4px">Sign up</span>
+      </router-link>
+      <router-link v-if="mode === 'signup'" class="justify-center" to="/login" style="margin-top: 20px"
+        >Already have an account? Login</router-link
+      >
+    </el-form>
   </el-card>
 </template>
 
@@ -91,9 +91,10 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   margin-bottom: 12px;
 }
 .el-form {
-  padding: 20px;
-  width: 500px;
+  min-width: 500px;
+  box-sizing: border-box;
 }
+
 .el-button {
   width: 100%;
   margin-top: 20px;
@@ -117,5 +118,17 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 .justify-end a {
   text-decoration: none;
   color: black;
+}
+
+@media (max-width: 600px) {
+  .el-form {
+    padding: 12px;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .el-card {
+    margin-top: 4rem;
+  }
 }
 </style>
