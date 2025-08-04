@@ -1,8 +1,9 @@
 import validator from 'validator'
+import type { InternalRuleItem } from 'async-validator'
 
 export const useValidators = () => {
-  const matchPassword = (getPassword) => {
-    return (rule: string, value: string, callback: (error?: string | Error) => void) => {
+  const matchPassword = (getPassword: () => string) => {
+    return (rule: InternalRuleItem, value: string, callback: (error?: string | Error) => void) => {
       const password = getPassword()
       if (!value) {
         callback(new Error('Please confirm your password'))
@@ -14,15 +15,16 @@ export const useValidators = () => {
     }
   }
 
-  const normalValidator = (fieldName: string) => (rule: any, value: string, callback: (error?: string | Error) => void) => {
-    const trimmedValue = (value || '').trim()
-    if (!trimmedValue) {
-      callback(new Error(`${fieldName} is required`))
-    } else {
-      callback()
+  const normalValidator =
+    (fieldName: string) => (rule: InternalRuleItem, value: string, callback: (error?: string | Error) => void) => {
+      const trimmedValue = (value || '').trim()
+      if (!trimmedValue) {
+        callback(new Error(`${fieldName} is required`))
+      } else {
+        callback()
+      }
     }
-  }
-  const validateStrongPassword = (rule: any, value: string, callback: (error?: string | Error) => void) => {
+  const validateStrongPassword = (rule: InternalRuleItem, value: string, callback: (error?: string | Error) => void) => {
     const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/
     const trimmedValue = (value || '').trim()
     if (!trimmedValue) {
@@ -36,7 +38,7 @@ export const useValidators = () => {
     }
   }
 
-  const emailValidator = (rule: any, value: string, callback: (error?: string | Error) => void) => {
+  const emailValidator = (rule: InternalRuleItem, value: string, callback: (error?: string | Error) => void) => {
     const trimmedValue = (value || '').trim()
     if (!trimmedValue) {
       callback(new Error('Email is required'))
@@ -47,7 +49,7 @@ export const useValidators = () => {
     }
   }
 
-  const nameValidator = (rule: any, value: string, callback: (error?: string | Error) => void) => {
+  const nameValidator = (rule: InternalRuleItem, value: string, callback: (error?: string | Error) => void) => {
     const validCharsPattern = /^[A-Za-zÑñ\s-]+$/
     const cleanStructurePattern = /^[A-Za-zÑñ]+(?:[- ][A-Za-zÑñ]+)*$/
 
@@ -66,7 +68,7 @@ export const useValidators = () => {
     }
   }
 
-  const addressValidator = (rule: any, value: string, callback: (error?: string | Error) => void) => {
+  const addressValidator = (rule: InternalRuleItem, value: string, callback: (error?: string | Error) => void) => {
     const trimmed = (value || '').trim()
     // Pattern: Only digits (pure number)
     const isOnlyNumbersPattern = /^\d+$/
@@ -111,7 +113,7 @@ export const useValidators = () => {
     callback()
   }
 
-  const contactValidator = (rule: any, value: string, callback: (error?: string | Error) => void) => {
+  const contactValidator = (rule: InternalRuleItem, value: string, callback: (error?: string | Error) => void) => {
     const trimmed = (value || '').trim()
     if (!trimmed) {
       return callback(new Error('Contact Number is required'))
@@ -122,7 +124,7 @@ export const useValidators = () => {
     }
   }
 
-  const masterCardValiator = (rule: any, value: string, callback: (error?: string | Error) => void) => {
+  const masterCardValiator = (rule: InternalRuleItem, value: string, callback: (error?: string | Error) => void) => {
     const inputData = (value || '').trim()
 
     if (!inputData) {
@@ -134,7 +136,7 @@ export const useValidators = () => {
     }
   }
 
-  const isValidMastercard = (rule: any, value: string, callback: (error?: string | Error) => void) => {
+  const isValidMastercard = (rule: InternalRuleItem, value: string, callback: (error?: string | Error) => void) => {
     if (!value) {
       return callback(new Error('Credit Card number is required'))
     }
@@ -192,5 +194,6 @@ export const useValidators = () => {
     validateStrongPassword,
     normalValidator,
     matchPassword,
+    masterCardValiator,
   }
 }
