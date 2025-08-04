@@ -1,7 +1,8 @@
 <template>
   <div class="container">
     <ul class="action-link">
-      <li>FEEDBACK</li>
+      <li>SAVE MORE ON SHOP+</li>
+      <!-- <li></li> -->
       <!-- <router-link v-if="authStore.token" to="/profile">PROFILE</router-link> -->
       <router-link v-if="!authStore.token" to="/login">LOGIN</router-link>
       <router-link v-if="!authStore.token" to="/sign-up">SIGNUP</router-link>
