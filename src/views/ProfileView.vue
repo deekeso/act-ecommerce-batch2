@@ -21,7 +21,7 @@
 
       <section v-else>
         <el-card shadow="never">
-          <template #header>  
+          <template #header>
             <h1>Personal Information</h1>
             <el-button color="black" size="large" @click="visible = true">Edit Profile</el-button>
           </template>
@@ -32,11 +32,11 @@
             </div>
             <div class="profile-label">
               <h4>Last Name</h4>
-              <p> {{ currentUser?.lastname }}</p>
+              <p>{{ currentUser?.lastname }}</p>
             </div>
           </div>
           <div class="flex">
-             <div class="profile-label">
+            <div class="profile-label">
               <h4>Email</h4>
               <p>{{ currentUser?.email }}</p>
             </div>
@@ -79,14 +79,14 @@ function handleCancel() {
 </script>
 
 <style scoped>
-.flex{
+.flex {
   display: flex;
   width: 100%;
   gap: 12px;
   margin-bottom: 2rem;
 }
 
-.profile-label{
+.profile-label {
   width: 50%;
 }
 
@@ -95,7 +95,13 @@ function handleCancel() {
   justify-content: space-between;
 }
 
-.el-input{
+.el-input {
   height: 50px;
+}
+
+@media (max-width: 765px) {
+  .flex {
+    flex-direction: column;
+  }
 }
 </style>
