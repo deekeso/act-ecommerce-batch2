@@ -1,8 +1,9 @@
 <template>
-  <div>
-    <el-image style="width: 100%;" :src="test" :fit="'cover'" />
-  </div>
-  <div class="product-page">
+  <div class="products-view-container">
+    <div>
+      <el-image style="width: 100%;" :src="test" :fit="'cover'" />
+    </div>
+    <div class="product-page">
     <div class="page-header">
       <h1>Our Products</h1>
     </div>
@@ -72,6 +73,7 @@
       </template>
     </div>
   </div>
+</div>
 </template>
 
 <script setup lang="ts">
