@@ -104,7 +104,7 @@ const submit = async () => {
       ElMessage.success('Logged in!')
     }
 
-    uiStore.hideLoginDialog() // ✅ just hides dialog
+    uiStore.hideLoginDialog()
 
     emit('success')
     emit('update:visible', false)
