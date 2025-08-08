@@ -51,7 +51,7 @@ export const useAuth = defineStore('auth', {
         cancelButtonText: 'Cancel',
         inputType: 'password',
         inputPattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/,
-        inputErrorMessage: 'Password must be at least 6 characters long',
+        inputErrorMessage: 'Password must be at least 8 characters long',
       })
         .then(({ value }) => {
           this.users[existingUserIndex].password = value
