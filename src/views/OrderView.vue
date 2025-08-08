@@ -54,6 +54,9 @@ function viewOrderDetails(id: string) {
 </script>
 
 <style scoped>
+.el-button {
+  margin-top: 10px;
+}
 .history {
   height: 500px;
   overflow-y: scroll;
@@ -67,6 +70,7 @@ function viewOrderDetails(id: string) {
 .accordion-title {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 :deep(.el-card__header) {
   display: flex;

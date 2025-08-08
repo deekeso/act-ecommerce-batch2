@@ -23,7 +23,10 @@
         <el-card shadow="never">
           <template #header>
             <h1>Personal Information</h1>
-            <el-button color="black" size="large" @click="visible = true">Edit Profile</el-button>
+            <el-button color="black" size="large" @click="visible = true">
+              <el-icon><Edit /></el-icon>
+              <span class="lg"> Edit Profile </span>
+            </el-button>
           </template>
           <div class="flex">
             <div class="profile-label">
@@ -99,9 +102,12 @@ function handleCancel() {
   height: 50px;
 }
 
-@media (max-width: 765px) {
+@media (max-width: 768px) {
   .flex {
     flex-direction: column;
+  }
+  .lg {
+    display: none;
   }
 }
 </style>

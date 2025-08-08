@@ -35,7 +35,7 @@
     </div>
 
     <div class="mt">
-      <h1>Recommended Item</h1>
+      <h1>Recommended Items</h1>
       <popular-products />
     </div>
   </div>
@@ -125,7 +125,7 @@ watch(
 .container {
   width: 100%;
   max-width: 1440px;
-  margin: 3rem auto;
+  margin: 2rem auto;
   padding: 0 1rem;
   box-sizing: border-box;
 }

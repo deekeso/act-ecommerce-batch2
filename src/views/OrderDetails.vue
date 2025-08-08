@@ -135,8 +135,8 @@ p {
 }
 
 .el-image {
-  width: 100px !important;
-  height: 100px !important;
+  width: 100px;
+  height: 100px;
   border-radius: 8px;
   object-fit: cover;
   border: 1px solid #e0e0e0;
@@ -178,7 +178,8 @@ p {
   }
 
   .el-image {
-    width: 100%;
+    width: 100px;
+    min-width: 100px;
     height: auto;
     max-height: 200px;
   }
