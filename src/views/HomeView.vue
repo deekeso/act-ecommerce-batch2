@@ -27,6 +27,14 @@
 import { BaseBanner, BasePill, PopularProducts, SearchBar } from '@/components'
 import { categories } from '@/models'
 import { RouterLink } from 'vue-router'
+import { onMounted } from 'vue'
+import { useProducts } from '@/stores/products'
+
+const productStore = useProducts()
+
+onMounted(() => {
+  productStore.initializeProducts()
+})
 </script>
 
 <style scoped>

@@ -6,13 +6,18 @@
 
 <script lang="ts" setup>
 import { ProductList } from '@/components'
-import { onMounted } from 'vue'
-import { products } from '@/models'
+import { onMounted, onBeforeMount } from 'vue'
+// import { products } from '@/models'
+import { useProducts } from '@/stores/products'
+
+const productStore = useProducts()
+
+onBeforeMount(() => {
+  productStore.initializeProducts()
+})
 
 onMounted(() => {
-  if (!JSON.parse(localStorage.getItem('products') || `[]`).length) {
-    localStorage.setItem('products', JSON.stringify(products))
-  }
+  productStore.loadProducts()
 })
 </script>
 

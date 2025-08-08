@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref, watch } from 'vue'
+import { onBeforeMount, onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useProducts } from '@/stores/products' // Adjust path if needed
 import type { Products } from '@/types'
@@ -57,6 +57,10 @@ watch(
   },
 )
 
+onBeforeMount(() => {
+  productStore.initializeProducts()
+})
+
 onMounted(() => {
   loadProductsByCategory()
 })
@@ -69,7 +73,7 @@ onMounted(() => {
 
 .category-wrapper {
   max-width: 1400px;
-  margin: 2rem auto;
+  margin: 1rem auto;
   height: 100%;
   min-height: 80vh;
 }
