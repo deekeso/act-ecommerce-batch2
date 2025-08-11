@@ -16,6 +16,7 @@ const loading = ref(false)
 const isMobile = ref(window.innerWidth <= 768)
 const selectedMethod = ref<Method | ''>('')
 const paymentMethods = Methods
+const formRules = computed(() => shippingDetailsRules(form))
 
 onMounted(() => {
   const checkIfMobile = () => {
@@ -111,7 +112,7 @@ const selectMethod = (selectMethod: Method) => {
             class="modern-form"
             :model="form"
             ref="formRef"
-            :rules="shippingDetailsRules"
+            :rules="formRules"
           >
             <el-form-item class="form-field" prop="firstName">
               <label class="field-label">First Name</label>

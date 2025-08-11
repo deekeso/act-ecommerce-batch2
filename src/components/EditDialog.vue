@@ -2,7 +2,7 @@
 import { shippingDetailsRules } from '@/composables/ruleFormShipping'
 import { useUserStore } from '@/stores/UserStore'
 import { ElMessage, type FormInstance } from 'element-plus'
-import { reactive, ref, watch, watchEffect } from 'vue'
+import { computed, reactive, ref, watch, watchEffect } from 'vue'
 
 const props = defineProps<{
   visible: boolean
@@ -23,20 +23,7 @@ const emit = defineEmits(['update:visible'])
 const userStore = useUserStore()
 const dialogVisible = ref(props.visible)
 const isFormValid = ref(false)
-
-watch(
-  () => ({ ...form }),
-  async () => {
-    if (!formRef.value) return
-    try {
-      await formRef.value.validate()
-      isFormValid.value = true
-    } catch {
-      isFormValid.value = false
-    }
-  },
-  { deep: true },
-)
+const formRules = computed(() => shippingDetailsRules(form))
 
 //needed watch to make the dialog appear
 watch(
@@ -80,17 +67,27 @@ watchEffect(() => {
   form.country = user.address?.country || ''
   form.postalCode = user.address?.postalCode || ''
 })
+
+watchEffect(() => {
+  isFormValid.value = Object.values(form).every((v) => String(v).trim() !== '')
+})
 </script>
 
 <template>
   <section id="edit">
-    <el-dialog v-model="dialogVisible" width="700px" align-center class="modern-dialog">
+    <el-dialog
+      v-model="dialogVisible"
+      width="700px"
+      align-center
+      class="modern-dialog"
+      destroy-on-close
+    >
       <div class="form-container">
         <h2 class="form-title">EDIT YOUR PROFILE</h2>
         <el-form
           @submit.prevent="submit"
           class="modern-form two-column-form"
-          :rules="shippingDetailsRules"
+          :rules="formRules"
           :model="form"
           ref="formRef"
         >

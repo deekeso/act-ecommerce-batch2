@@ -353,6 +353,7 @@ const submit = async () => {
   margin-top: 20px;
   font-size: 13px;
   color: #409eff;
+  width: 110px;
   cursor: pointer;
   text-align: left;
   transition: color 0.2s ease;

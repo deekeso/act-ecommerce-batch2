@@ -66,7 +66,7 @@ const toggleSelection = (productId: number, checked: boolean) => {
       </el-table-column>
       <el-table-column label="Total">
         <template #default="{ row }">
-          ₱{{ Math.floor(row.product.price * row.quantity).toLocaleString() }}
+          ₱{{ (row.product.price * row.quantity).toLocaleString() }}
         </template>
       </el-table-column>
       <el-table-column width="60px">
