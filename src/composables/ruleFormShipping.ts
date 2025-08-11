@@ -1,8 +1,8 @@
 import type { FormRules } from 'element-plus'
 
-const namePattern = /^[A-Za-zÑñ\s'-]+$/
+const namePattern = /^(?!.*([-'"()])\1)[A-Za-zÑñ\s'"()-]+$/
 const phonePattern = /^(09|\+639)\d{9}$/
-const addressRegex = /^[A-Za-zÑñ0-9\s,.-]+$/
+const addressRegex = /^(?!.*([,.\-])\1)(?=.*[A-Za-zÑñ])[A-Za-zÑñ0-9\s,.\-]+$/
 const postalRegex = /^\d{4}$/
 
 const validateName = (fieldName: string) => {
@@ -58,56 +58,54 @@ const validatePostal = (fieldName: string) => {
   }
 }
 
-export const shippingDetailsRules: FormRules = {
+export const shippingDetailsRules = (form: any): FormRules => ({
   firstName: [
-    { required: true, message: 'Please enter your first name', trigger: 'blur' },
     {
+      required: true,
       validator: validateName('first name'),
       trigger: 'blur',
     },
   ],
-
   lastName: [
-    { required: true, message: 'Please enter your last name', trigger: 'blur' },
     {
+      required: true,
       validator: validateName('last name'),
       trigger: 'blur',
     },
   ],
   phone: [
-    { required: true, message: 'Please enter your phone number', trigger: 'blur' },
     {
+      required: true,
       validator: validatePhone('phone'),
       trigger: 'blur',
     },
   ],
-
   street: [
-    { required: true, message: 'Please enter your street address', trigger: 'blur' },
     {
+      required: true,
       validator: validateAddressField('street address'),
       trigger: 'blur',
     },
   ],
   city: [
-    { required: true, message: 'Please enter your city address', trigger: 'blur' },
     {
-      validator: validateAddressField('street address'),
+      required: true,
+      validator: validateAddressField('city address'),
       trigger: 'blur',
     },
   ],
   country: [
-    { required: true, message: 'Please enter your country address', trigger: 'blur' },
     {
-      validator: validateAddressField('street address'),
+      required: true,
+      validator: validateAddressField('country address'),
       trigger: 'blur',
     },
   ],
   postalCode: [
-    { required: true, message: 'Please enter your postal address', trigger: 'blur' },
     {
+      required: true,
       validator: validatePostal('postal code'),
       trigger: 'blur',
     },
   ],
-}
+})

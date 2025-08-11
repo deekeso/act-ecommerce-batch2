@@ -77,6 +77,7 @@ const runAway = async () => {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0 10px;
   height: 100vh;
   flex-direction: column;
   color: white;
@@ -86,7 +87,8 @@ const runAway = async () => {
 }
 
 h1 {
-  font-size: 80px;
+  font-size: clamp(24px, 8vw, 80px);
+  text-align: center;
 }
 
 .router-wrapper {
@@ -96,7 +98,8 @@ h1 {
 }
 
 .router {
-  font-size: 100px;
+  font-size: clamp(20px, 6vw, 100px);
+  text-align: center;
   text-decoration: none;
   transition: all 0.3s ease;
   cursor: pointer;
