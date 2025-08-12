@@ -111,8 +111,9 @@ onMounted(() => {
           </span>
 
           <router-link to="/cart" class="cart-icon">
-            <div class="counter">{{ userStore.currentUser?.cartItems?.length }}</div>
-            <el-icon class="cart" size="large"><ShoppingCart /></el-icon>
+            <el-badge :value="userStore.currentUser?.cartItems?.length">
+              <el-icon class="cart" size="large"><ShoppingCart /></el-icon>
+            </el-badge>
           </router-link>
         </div>
         <el-icon class="icon-menu" v-if="isMobile" @click="showDrawer = true"><Tools /></el-icon>
