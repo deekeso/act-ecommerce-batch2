@@ -74,6 +74,7 @@ function handleBuyItem() {
   }
 
   if (!authStore.token) {
+    ElMessage.info('You must log in first')
     router.push({ path: '/login', query: { redirect: router.currentRoute.value.fullPath } })
   } else {
     cartStore.setBuyNow({
@@ -92,6 +93,7 @@ function handleAddToCart() {
   }
 
   if (!authStore.token) {
+    ElMessage.info('You must log in first')
     router.push({ path: '/login', query: { redirect: router.currentRoute.value.fullPath } })
   } else {
     cartStore.handleAddToCart({ ...product.value, quantity: quantity.value <= 0 ? (quantity.value = 1) : quantity.value })
