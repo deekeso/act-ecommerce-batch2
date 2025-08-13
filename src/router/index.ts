@@ -11,13 +11,13 @@ const router = createRouter({
   },
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const auth = useAuth()
-  auth.loadAuthFromStorage()
+  await auth.loadAuthFromStorage()
 
   if (to.meta.requiresAuth && (!auth.user || !auth.token)) {
     ElMessage.info('You must log in first')
-    next('/login')
+    next({ path: '/login', query: { redirect: to.fullPath } })
   } else if (to.meta.requiresGuest && auth.user && auth.token) {
     ElMessage.info('You are already logged in')
     next('/')
