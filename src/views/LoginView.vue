@@ -10,8 +10,9 @@ import { AuthForm as LoginForm } from '@/components'
 import { useAuth } from '@/stores/auth'
 import { useAuthGuard } from '@/composables/useAuthGuard'
 import type { User } from '@/types'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
+const route = useRoute()
 const router = useRouter()
 const authStore = useAuth()
 const { requireGuest } = useAuthGuard()
@@ -22,9 +23,9 @@ onMounted(() => {
 
 function handleLogin(formData: User) {
   authStore.handleLogin(formData)
-
+  const redirectPath = (route.query.redirect as string) || '/'
   if (authStore.isAuthenticated) {
-    router.push('/')
+    router.push(redirectPath)
   }
 }
 </script>
