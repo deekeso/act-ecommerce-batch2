@@ -1,5 +1,5 @@
 <template>
-  <div class="order-list">
+  <div class="order-list" :class="currentItem.length <= 3 ? 'few-items' : 'many-items'">
     <div class="order-card" v-for="item in currentItem" :key="item?.id">
       <el-image :src="item?.image" fit="cover" :lazy="true" style="width: 100px; height: 100px; border-radius: 12px" />
       <div class="order-card-body">
@@ -39,8 +39,15 @@ const currentItem = computed(() => (isBuyNowMode.value ? [buyNowItem.value] : ca
 }
 
 .order-list {
-  height: 620px;
   position: relative;
+}
+
+.order-list.few-items {
+  height: 100%;
+}
+
+.order-list.many-items {
+  height: 620px;
   overflow-y: scroll;
 }
 </style>
