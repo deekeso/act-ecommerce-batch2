@@ -81,7 +81,9 @@ import { useOrder } from '@/stores/orders'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useAuth } from '@/stores/auth'
 import type { AddressRuleForm } from '@/types'
+import { useUtils } from '@/composables/useUtils'
 
+const { isEmptyObject } = useUtils()
 const authStore = useAuth()
 const cartStore = useCart()
 const orderStore = useOrder()
@@ -91,6 +93,7 @@ const router = useRouter()
 const currentUser = ref(authStore.user)
 const billingAddress = ref<AddressRuleForm>({})
 const checkOutIsActive = ref(false)
+const skipConfirmation = ref(false)
 
 // handle changes on profile
 function onProfileUpdate(formData: AddressRuleForm) {
@@ -111,7 +114,7 @@ function onProfileUpdate(formData: AddressRuleForm) {
 function handleCheckOut() {
   const { firstname, lastname, contact, address } = billingAddress.value
   if (!firstname || !lastname || !contact || !address) {
-    ElMessage.error("Please confirm you're shipping address")
+    ElMessage.error('Please confirm youre shipping address')
     return
   }
 
@@ -146,12 +149,13 @@ onMounted(() => {
     address: authStore.user?.address || '',
   }
 
-  const noItemsSelected = cartStore.getAllSelectedCartItems.length === 0
-  const noBuyNow = cartStore.buyNowItem === null
+  const noItemsSelected = cartStore.getSelectedItemLength > 0
+  const noBuyNow = cartStore.buyNowItem && !isEmptyObject(cartStore.buyNowItem)
 
-  if (noItemsSelected && noBuyNow) {
+  if (!noItemsSelected && !noBuyNow) {
+    skipConfirmation.value = true
     ElMessage.error('Unauthorized Action')
-    router.push('/')
+    router.push('/cart')
   }
 })
 
@@ -164,6 +168,11 @@ onBeforeRouteLeave((to, from, next) => {
 
   // Skip confirmation if user is already unauthenticated
   if (!authStore.token) {
+    next()
+    return
+  }
+
+  if (skipConfirmation.value) {
     next()
     return
   }
