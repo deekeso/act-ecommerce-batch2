@@ -24,6 +24,7 @@ import { useUtils } from '@/composables/useUtils'
 import { ShoppingCart } from '@element-plus/icons-vue'
 import { useCart } from '@/stores/carts'
 import { useAuth } from '@/stores/auth'
+import { ElMessage } from 'element-plus'
 
 const router = useRouter()
 const authStore = useAuth()
@@ -33,7 +34,8 @@ const { formatPrice } = useUtils()
 
 function onAddToCart() {
   if (!authStore.token) {
-    router.push('/login')
+    ElMessage.info('You must log in first')
+    router.push({ path: '/login', query: { redirect: `/products/${props.id}` } })
   } else {
     handleAddToCart({ ...props, quantity: 1 })
   }
