@@ -67,8 +67,8 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.el-breadcrumb {
-  margin-bottom: 20px;
+.el-breadcrumb span {
+  margin-bottom: 12px;
 }
 
 .category-wrapper {
@@ -76,6 +76,7 @@ onMounted(() => {
   margin: 1rem auto;
   height: 100%;
   min-height: 80vh;
+  padding: 20px;
 }
 
 .product-card {
