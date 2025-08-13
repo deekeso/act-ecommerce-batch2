@@ -37,15 +37,15 @@
           <h3 class="">Order Summary</h3>
         </template>
         <p class="flex-text">
-          Shipping Fee: <span>{{ cartStore.getAllSelectedCartItems.length > 0 ? formatPrice(100) : formatPrice(0) }}</span>
+          Shipping Fee: <span>{{ shippingFee }}</span>
         </p>
         <p class="flex-text">
-          SubTotal: <span>{{ formatPrice(cartStore.getSelectedTotalPrice) }}</span>
+          SubTotal: <span>{{ subTotal }}</span>
         </p>
         <p class="total-amount flex-text">
           Total Price:
           <span>
-            {{ formatPrice(cartStore.getAllSelectedCartItems.length > 0 ? cartStore.getSelectedTotalPrice + 100 : 0) }}
+            {{ total }}
           </span>
         </p>
         <el-button size="large" class="checkout-button" @click="handleCheckout()"> Proceed to Checkout &rarr;</el-button>
@@ -55,7 +55,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { CartCard } from '@/components'
 import { useCart } from '@/stores/carts'
 import { useUtils } from '@/composables/useUtils'
@@ -64,6 +64,11 @@ import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { useAuthGuard } from '@/composables/useAuthGuard'
 
+const total = computed(() =>
+  formatPrice(cartStore.getAllSelectedCartItems.length > 0 ? cartStore.getSelectedTotalPrice + 100 : 0),
+)
+const shippingFee = computed(() => (cartStore.getAllSelectedCartItems.length > 0 ? formatPrice(100) : formatPrice(0)))
+const subTotal = computed(() => formatPrice(cartStore.getSelectedTotalPrice))
 const { requireAuth } = useAuthGuard()
 const router = useRouter()
 const cartStore = useCart()
