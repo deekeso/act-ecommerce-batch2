@@ -14,13 +14,14 @@ export const useCart = defineStore('cart', {
 
   getters: {
     getCartItems: (state) => state.cart,
+    getTotalCartItems: (state) => state.cart.reduce((totalItems, item) => (totalItems += item.quantity), 0),
     getTotalPrice: (state) => state.cart.reduce((total, item) => total + item.quantity * item.price, 0),
     getSelectedTotalPrice: (state) =>
       state.cart.filter((item) => item.selectedItem).reduce((total, item) => total + item.quantity * item.price, 0),
     getSelectItems: (state) => state.cart.length > 0 && state.cart.every((item) => item.selectedItem),
     getAllSelectedCartItems: (state) => state.cart.filter((item) => item.selectedItem === true),
     getBuyNowItems: (state) => state.buyNowItem,
-    getSelectedItemLegnth: (state) => state.cart.filter((item) => item.selectedItem === true).length,
+    getSelectedItemLength: (state) => state.cart.filter((item) => item.selectedItem === true).length,
   },
 
   actions: {
