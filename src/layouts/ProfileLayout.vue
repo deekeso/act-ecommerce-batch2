@@ -19,7 +19,7 @@
 <script lang="ts" setup>
 import { RouterLink, useRouter } from 'vue-router'
 import { useAuth } from '@/stores/auth'
-import { ElMessageBox, ElMessage } from 'element-plus'
+import { ElMessageBox } from 'element-plus'
 import { useCart } from '@/stores/carts'
 
 const router = useRouter()
@@ -31,7 +31,6 @@ function onLogOut() {
     .then(() => {
       authStore.handleLogout()
       cartStore.clearBuyNow()
-      ElMessage.success('Successfully logged out')
       router.push('/')
     })
     .catch(() => {
