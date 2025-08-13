@@ -82,5 +82,15 @@ export const useUtils = () => {
     return shuffled.slice(0, count)
   }
 
-  return { formatPrice, toastMessage, truncateText, capitalizeFirstWord, capitalizeEachWord, getRandomProducts }
+  const isEmptyObject = (obj: object) => obj && Object.keys(obj).length === 0 && obj.constructor === Object
+
+  return {
+    formatPrice,
+    toastMessage,
+    truncateText,
+    capitalizeFirstWord,
+    capitalizeEachWord,
+    getRandomProducts,
+    isEmptyObject,
+  }
 }
