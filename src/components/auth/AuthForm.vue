@@ -33,12 +33,14 @@
       <el-button color="black" native-type="submit" size="large">
         {{ btnLabel }}
       </el-button>
-      <router-link v-if="mode === 'login'" class="justify-center" to="/sign-up" style="margin-top: 20px">
-        Don't have an Account? <span style="margin-left: 4px">Sign up</span>
-      </router-link>
-      <router-link v-if="mode === 'signup'" class="justify-center" to="/login" style="margin-top: 20px"
-        >Already have an account? Login</router-link
-      >
+      <div v-if="mode === 'login'" class="justify-center" style="margin-top: 20px">
+        <span> Don't have an Account? &nbsp;</span>
+        <router-link to="/sign-up">Sign up</router-link>
+      </div>
+      <div v-if="mode === 'signup'" class="justify-center" style="margin-top: 20px">
+        <span>Already have an account? &nbsp;</span>
+        <router-link to="/login"> Login</router-link>
+      </div>
     </el-form>
   </el-card>
 </template>
@@ -70,7 +72,7 @@ const emit = defineEmits(['on-submit'])
 const rules = reactive<FormRules<RuleForm>>({
   email: [{ validator: emailValidator, trigger: 'blur' }],
   password: [{ validator: mode === 'login' ? normalValidator('password') : validateStrongPassword, trigger: 'blur' }],
-  confirmPassword: [{ validator: matchPassword(() => ruleForm.password), trigger: 'blur' }],
+  confirmPassword: [{ validator: matchPassword(() => ruleForm.password ?? ''), trigger: 'blur' }],
 })
 
 const submitForm = async (formEl: FormInstance | undefined) => {
@@ -87,6 +89,10 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 </script>
 
 <style scoped>
+a {
+  text-decoration: none;
+  color: black;
+}
 .heading {
   margin-bottom: 12px;
 }
@@ -112,12 +118,6 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 .justify-end {
   display: flex;
   justify-content: end;
-}
-
-.justify-center,
-.justify-end a {
-  text-decoration: none;
-  color: black;
 }
 
 @media (max-width: 600px) {
