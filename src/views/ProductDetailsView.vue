@@ -13,7 +13,7 @@
 
     <div class="product-details">
       <div class="product-image">
-        <el-image class="product-image-el" :src="product?.image" fit="fill" :lazy="false" />
+        <el-image class="product-image-el" :src="product?.image" fit="cover" :lazy="false" />
       </div>
 
       <div class="product-description">
@@ -74,7 +74,7 @@ function handleBuyItem() {
   }
 
   if (!authStore.token) {
-    router.push('/login')
+    router.push({ path: '/login', query: { redirect: router.currentRoute.value.fullPath } })
   } else {
     cartStore.setBuyNow({
       ...product.value,
@@ -92,7 +92,7 @@ function handleAddToCart() {
   }
 
   if (!authStore.token) {
-    router.push('/login')
+    router.push({ path: '/login', query: { redirect: router.currentRoute.value.fullPath } })
   } else {
     cartStore.handleAddToCart({ ...product.value, quantity: quantity.value <= 0 ? (quantity.value = 1) : quantity.value })
     quantity.value = 1
@@ -113,6 +113,9 @@ watch(
 </script>
 
 <style scoped>
+.el-breadcrumb span {
+  margin-bottom: 12px;
+}
 .search-bar-form {
   width: 100%;
   margin-bottom: 20px;
