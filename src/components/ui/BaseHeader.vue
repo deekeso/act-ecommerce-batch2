@@ -28,7 +28,7 @@
           <el-icon :size="20"><ShoppingCart /></el-icon>
           <span>Cart</span>
           <span v-if="cartStore.getCartItems.length > 0" class="">
-            {{ authStore.token != null ? `(${cartStore.getCartItems.length})` : '' }}
+            {{ authStore.token != null ? `(${cartStore.getTotalCartItems})` : '' }}
           </span>
         </router-link>
       </div>
