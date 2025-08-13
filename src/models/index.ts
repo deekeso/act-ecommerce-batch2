@@ -58,7 +58,7 @@ export const categories = [
   },
   { name: 'Travel & Leisure', subcategories: ['Luggage', 'Travel Accessories', 'Camping Gear'] },
   { name: 'Food & Beverages', subcategories: ['Specialty Foods', 'Beverages', 'Condiments'] },
-  { name: 'Baby & Kids', subcategories: ['Baby Gear', 'Kids’ Clothing', 'Educational Toys'] },
+  { name: 'Baby & Kids', subcategories: ['Baby Gear', 'Kids Clothing', 'Educational Toys'] },
 ]
 
 export const bannerImages = [
@@ -206,7 +206,7 @@ export const products = [
   {
     id: 'f6071829-6666-7777-8888-999900001111',
     price: 3200,
-    image: 'https://m.media-amazon.com/images/I/711+1ySE4BL._AC_SL1500_.jpg',
+    image: 'https://m.media-amazon.com/images/I/71RBlpE8s1L._AC_SL1500_.jpg',
     description: 'Energy-efficient LED lamp with adjustable brightness.',
     link: '/products/f6071829-6666-7777-8888-999900001111',
     label: 'LED Desk Lamp',
@@ -381,6 +381,378 @@ export const products = [
     value: 'Gaming Chair',
     category: 'Electronics',
     subcategory: 'Gadgets',
+  },
+  {
+    id: 'fb004-1111-2222-3333-444455556666',
+    label: 'Oreo Chocolate Sandwich Cookies',
+    value: 'Oreo Chocolate Sandwich Cookies',
+    price: 499,
+    image: 'https://i5.walmartimages.com/asr/f4b2b9ae-a9d4-4c9e-8978-d5dbf8d866d1.2e7c923458a90653316559e94272a857.jpeg',
+    description: 'Classic chocolate cookies with a sweet creme filling.',
+    link: '/products/fb004-1111-2222-3333-444455556666',
+    category: 'Food & Beverages',
+    subcategory: 'Snacks',
+  },
+  {
+    id: 'fb005-2222-3333-4444-555566667777',
+    label: 'Pringles Original Potato Crisps',
+    value: 'Pringles Original Potato Crisps',
+    price: 299,
+    image: 'https://tse2.mm.bing.net/th/id/OIP.dLKBIqzExhenOMG9obtwKgHaHa?r=0&cb=thfvnext&rs=1&pid=ImgDetMain&o=7&rm=3',
+    description: 'Crispy, stackable potato chips in the original salty flavor.',
+    link: '/products/fb005-2222-3333-4444-555566667777',
+    category: 'Food & Beverages',
+    subcategory: 'Snacks',
+  },
+  {
+    id: 'fb006-3333-4444-5555-666677778888',
+    label: 'Coca-Cola 500ml Bottle',
+    value: 'Coca-Cola 500ml Bottle',
+    price: 199,
+    image: 'https://www.bestwaywholesale.co.uk/img/products/1000/2/54491472.jpg',
+    description: 'Refreshing cola drink with the classic Coca-Cola taste.',
+    link: '/products/fb006-3333-4444-5555-666677778888',
+    category: 'Food & Beverages',
+    subcategory: 'Beverages',
+  },
+
+  {
+    id: 'np001-1234-5678-9012-345678901234',
+    label: 'ASUS ROG Strix G15',
+    value: 'ASUS ROG Strix G15',
+    price: 89999,
+    image: 'https://www.laptopmedia.com/wp-content/uploads/2020/04/2-4-scaled-e1585829292540.jpg',
+    description: 'ASUS ROG Strix G15 Gaming Laptop - AMD Ryzen 7, RTX 4060, 16GB DDR4, 512GB SSD, 15.6" 144Hz display.',
+    link: '/products/np001-1234-5678-9012-345678901234',
+    category: 'Electronics',
+    subcategory: 'Computers',
+  },
+  {
+    id: 'np002-2345-6789-0123-456789012345',
+    label: 'Samsung Galaxy S24',
+    value: 'Samsung Galaxy S24',
+    price: 65999,
+    image:
+      'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    description:
+      'Samsung Galaxy S24 5G smartphone with 128GB storage, 50MP triple camera system, and 6.2" Dynamic AMOLED display.',
+    link: '/products/np002-2345-6789-0123-456789012345',
+    category: 'Electronics',
+    subcategory: 'Phones',
+  },
+
+  // Clothing & Apparel (completely missing from your current list)
+  {
+    id: 'np003-3456-7890-1234-567890123456',
+    label: 'Nike Dri-FIT Tee',
+    value: 'Nike Dri-FIT Tee',
+    price: 1599,
+    image: 'https://cf.shopee.ph/file/876b119a6d69dfc27802b15f0c2ac3ec',
+    description:
+      "Nike Dri-FIT men's t-shirt with moisture-wicking technology. 100% polyester, available in multiple colors.",
+    link: '/products/np003-3456-7890-1234-567890123456',
+    category: 'Clothing & Apparel',
+    subcategory: "Men's Clothing",
+  },
+  {
+    id: 'np004-4567-8901-2345-678901234567',
+    label: 'Zara Floral Midi Dress',
+    value: 'Zara Floral Midi Dress',
+    price: 3999,
+    image:
+      'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    description:
+      "Zara women's floral midi dress with v-neck and short sleeves. Lightweight fabric perfect for summer occasions.",
+    link: '/products/np004-4567-8901-2345-678901234567',
+    category: 'Clothing & Apparel',
+    subcategory: "Women's Clothing",
+  },
+  {
+    id: 'np005-5678-9012-3456-789012345678',
+    label: 'Nike Air Max 270',
+    value: 'Nike Air Max 270',
+    price: 7999,
+    image:
+      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    description:
+      'Nike Air Max 270 running shoes featuring Max Air unit in heel, breathable mesh upper, and durable rubber outsole.',
+    link: '/products/np005-5678-9012-3456-789012345678',
+    category: 'Clothing & Apparel',
+    subcategory: 'Shoes',
+  },
+
+  // Home & Living - Home Décor (missing)
+  {
+    id: 'np006-6789-0123-4567-890123456789',
+    label: 'IKEA VÄXJÖ Canvas Print',
+    value: 'IKEA VÄXJÖ Canvas Print',
+    price: 2999,
+    image:
+      'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    description:
+      'IKEA VÄXJÖ abstract canvas print 50x70cm with black frame. Modern geometric design perfect for living spaces.',
+    link: '/products/np006-6789-0123-4567-890123456789',
+    category: 'Home & Living',
+    subcategory: 'Home Décor',
+  },
+
+  // Toys & Games (completely missing)
+  {
+    id: 'np007-7890-1234-5678-901234567890',
+    label: 'LEGO Classic Creative Bricks',
+    value: 'LEGO Classic Creative Bricks',
+    price: 4999,
+    image: 'https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6252/6252643ld.jpg',
+    description: 'LEGO Classic Creative Bricks set (11005) with 900 pieces in 42 different colors. Ages 4+.',
+    link: '/products/np007-7890-1234-5678-901234567890',
+    category: 'Toys & Games',
+    subcategory: "Children's Toys",
+  },
+  {
+    id: 'np008-8901-2345-6789-012345678901',
+    label: 'Staunton Tournament Chess Set',
+    value: 'Staunton Tournament Chess Set',
+    price: 6999,
+    image: 'https://m.media-amazon.com/images/I/71oiSqoJlcL._AC_UL1500_.jpg',
+    description:
+      'Professional Staunton tournament chess set with weighted pieces, 3.75" king, and 20" folding wooden board.',
+    link: '/products/np008-8901-2345-6789-012345678901',
+    category: 'Toys & Games',
+    subcategory: 'Board Games',
+  },
+
+  // Groceries & Food (completely missing)
+  {
+    id: 'np009-9012-3456-7890-123456789012',
+    label: 'Organic Gala Apples',
+    value: 'Organic Gala Apples',
+    price: 599,
+    image:
+      'https://images.unsplash.com/photo-1610832958506-aa56368176cf?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    description: 'Fresh organic Gala apples, 1kg pack. Sweet and crispy, USDA Organic certified, perfect for snacking.',
+    link: '/products/np009-9012-3456-7890-123456789012',
+    category: 'Groceries & Food',
+    subcategory: 'Fresh Produce',
+  },
+  {
+    id: 'np010-0123-4567-8901-234567890123',
+    label: 'Blue Bottle Ethiopian Coffee',
+    value: 'Blue Bottle Ethiopian Coffee',
+    price: 1899,
+    image: 'https://www.hispotion.com/wp-content/uploads/2016/10/blue_bottle_coffee.jpg',
+    description:
+      'Blue Bottle Ethiopian single-origin coffee beans, 250g. Medium roast with notes of blueberry and chocolate.',
+    link: '/products/np010-0123-4567-8901-234567890123',
+    category: 'Groceries & Food',
+    subcategory: 'Beverages',
+  },
+
+  // Sports & Outdoors - Sports Equipment (missing)
+  {
+    id: 'np011-1234-5678-9012-345678901234',
+    label: 'Wilson Pro Staff Tennis Racket',
+    value: 'Wilson Pro Staff Tennis Racket',
+    price: 8999,
+    image: 'https://media.newitts.com/cdn/images/products/new-design/800x800/it100017a.jpg',
+    description:
+      'Wilson Pro Staff 97 v13 tennis racket, 315g weight, 16x19 string pattern. Preferred by professional players.',
+    link: '/products/np011-1234-5678-9012-345678901234',
+    category: 'Sports & Outdoors',
+    subcategory: 'Sports Equipment',
+  },
+
+  // Pet Supplies (completely missing)
+  {
+    id: 'np012-2345-6789-0123-456789012345',
+    label: 'Royal Canin Adult Dog Food',
+    value: 'Royal Canin Adult Dog Food',
+    price: 3999,
+    image: 'https://ph-test-11.slatic.net/p/35eb13b1b05eced915b00650969567b3.jpg',
+    description:
+      'Royal Canin Adult dry dog food with real chicken as first ingredient. Complete nutrition for dogs 1-7 years, 5kg bag.',
+    link: '/products/np012-2345-6789-0123-456789012345',
+    category: 'Pet Supplies',
+    subcategory: 'Pet Food',
+  },
+  {
+    id: 'np013-3456-7890-1234-567890123456',
+    label: 'KONG Feather Mouse Toy',
+    value: 'KONG Feather Mouse Toy',
+    price: 899,
+    image: 'https://www.petmania.ie/wp-content/uploads/2024/04/88739.jpg',
+    description:
+      'KONG Feather Mouse cat toy with natural feathers and catnip. Interactive design stimulates hunting instincts.',
+    link: '/products/np013-3456-7890-1234-567890123456',
+    category: 'Pet Supplies',
+    subcategory: 'Toys',
+  },
+
+  // Jewelry & Watches (completely missing)
+  {
+    id: 'np014-4567-8901-2345-678901234567',
+    label: 'Pandora Silver Chain Necklace',
+    value: 'Pandora Silver Chain Necklace',
+    price: 12999,
+    image:
+      'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    description:
+      'Pandora sterling silver chain necklace, 45cm length with heart pendant. Comes with authentic Pandora gift box.',
+    link: '/products/np014-4567-8901-2345-678901234567',
+    category: 'Jewelry & Watches',
+    subcategory: 'Necklaces',
+  },
+  {
+    id: 'np015-5678-9012-3456-789012345678',
+    label: 'Casio Classic Analog Watch',
+    value: 'Casio Classic Analog Watch',
+    price: 24999,
+    image:
+      'https://images.unsplash.com/photo-1533139502658-0198f920d8e8?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    description:
+      'Casio MTP-1303L classic analog watch with genuine leather strap, water resistant 30M, 3-year battery life.',
+    link: '/products/np015-5678-9012-3456-789012345678',
+    category: 'Jewelry & Watches',
+    subcategory: 'Watches',
+  },
+  {
+    id: '1234-5678-9012-3456-789012345678',
+    label: 'Classic Wristwatch',
+    value: 'Classic Wristwatch',
+    price: 24999,
+    image:
+      'https://images.antiquesatlas.com/dealer-stock-images/thevintagewristwatch/Gents_9ct_gold_Longines_wrist__as170a5010z.jpg',
+    description: 'Timeless analog wristwatch with leather strap.',
+    link: '/products/1234-5678-9012-3456-789012345678',
+    category: 'Jewelry & Watches',
+    subcategory: 'Watches',
+  },
+
+  // Office & Business Supplies (completely missing)
+  {
+    id: 'np016-6789-0123-4567-890123456789',
+    label: 'Herman Miller Sayl Office Desk',
+    value: 'Herman Miller Sayl Office Desk',
+    price: 18999,
+    image: 'https://fittingchairs.com/wp-content/uploads/2021/12/3__42063.1623703788-2048x2048.jpg',
+    description:
+      'Herman Miller modern office desk with built-in drawers, cable management, and adjustable height. 120cm width.',
+    link: '/products/np016-6789-0123-4567-890123456789',
+    category: 'Office & Business Supplies',
+    subcategory: 'Office Furniture',
+  },
+  {
+    id: 'np017-7890-1234-5678-901234567890',
+    label: 'Canon PIXMA All-in-One Printer',
+    value: 'Canon PIXMA All-in-One Printer',
+    price: 12999,
+    image: 'https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6290/6290017_sd.jpg',
+    description: 'Canon PIXMA TS3320 wireless all-in-one inkjet printer with print, scan, copy, and mobile connectivity.',
+    link: '/products/np017-7890-1234-5678-901234567890',
+    category: 'Office & Business Supplies',
+    subcategory: 'Office Equipment',
+  },
+
+  // Entertainment (completely missing)
+  {
+    id: 'np018-8901-2345-6789-012345678901',
+    label: 'Marvel Studios Phase 4 Collection',
+    value: 'Marvel Studios Phase 4 Collection',
+    price: 4999,
+    image: 'https://tse3.mm.bing.net/th/id/OIP.8MW_qLfPJIJKujkoNdVJ8gAAAA?r=0&cb=thfvnext&rs=1&pid=ImgDetMain&o=7&rm=3',
+    description:
+      'Marvel Studios Phase 4 Blu-ray collection featuring 10 movies including Black Widow, Eternals, and Spider-Man.',
+    link: '/products/np018-8901-2345-6789-012345678901',
+    category: 'Entertainment',
+    subcategory: 'Movies',
+  },
+
+  // Arts & Crafts (completely missing)
+  {
+    id: 'np019-9012-3456-7890-123456789012',
+    label: 'Winsor & Newton Acrylic Paint Set',
+    value: 'Winsor & Newton Acrylic Paint Set',
+    price: 3599,
+    image: 'https://tse3.mm.bing.net/th/id/OIP.lrsZquyQWcqd3VFUkaPbIgAAAA?r=0&cb=thfvnext&rs=1&pid=ImgDetMain&o=7&rm=3',
+    description: 'Winsor & Newton Galeria acrylic paint set with 24 colors (60ml tubes) plus brushes and palette knife.',
+    link: '/products/np019-9012-3456-7890-123456789012',
+    category: 'Arts & Crafts',
+    subcategory: 'Painting Supplies',
+  },
+  {
+    id: 'np020-0123-4567-8901-234567890123',
+    label: 'Lion Brand Learn to Knit Kit',
+    value: 'Lion Brand Learn to Knit Kit',
+    price: 2999,
+    image: 'https://2.bp.blogspot.com/-8Z49ofo9mLY/Uwk-b_sPSQI/AAAAAAAADbs/44kh51KuJwI/s1600/LionLearntoKnit.jpg',
+    description: 'Lion Brand complete beginner knitting kit with yarn, needles, stitch markers, and instruction book.',
+    link: '/products/np020-0123-4567-8901-234567890123',
+    category: 'Arts & Crafts',
+    subcategory: 'Knitting',
+  },
+
+  // Travel & Leisure (completely missing)
+  {
+    id: 'np021-1234-5678-9012-345678901234',
+    label: 'Osprey Farpoint 40L Backpack',
+    value: 'Osprey Farpoint 40L Backpack',
+    price: 8999,
+    image: 'https://tse4.mm.bing.net/th/id/OIP.8XKOXXqeXF6lvmnyiD5dRQHaHa?r=0&cb=thfvnext&rs=1&pid=ImgDetMain&o=7&rm=3',
+    description:
+      'Osprey Farpoint 40L travel backpack with zip-off daypack, multiple compartments, and padded shoulder straps.',
+    link: '/products/np021-1234-5678-9012-345678901234',
+    category: 'Travel & Leisure',
+    subcategory: 'Luggage',
+  },
+  {
+    id: 'np022-2345-6789-0123-456789012345',
+    label: 'Coleman Sundome 4-Person Tent',
+    value: 'Coleman Sundome 4-Person Tent',
+    price: 15999,
+    image: 'https://cdn.snowys.com.au/content/images/thumbs/0028490_sundome-4-person-dome-tent.jpeg',
+    description:
+      'Coleman Sundome 4-person camping tent with WeatherTec system, easy 10-minute setup, and spacious interior.',
+    link: '/products/np022-2345-6789-0123-456789012345',
+    category: 'Travel & Leisure',
+    subcategory: 'Camping Gear',
+  },
+
+  // Food & Beverages (separate from Groceries)
+  {
+    id: 'np023-3456-7890-1234-567890123456',
+    label: "Frank's RedHot Original Sauce",
+    value: "Frank's RedHot Original Sauce",
+    price: 1299,
+    image: 'https://img.lazcdn.com/g/p/90340324f68857f62056414e7f500859.jpg_720x720q80.jpg',
+    description: "Frank's RedHot Original cayenne pepper sauce, 354ml bottle. The original Buffalo wing sauce since 1920.",
+    link: '/products/np023-3456-7890-1234-567890123456',
+    category: 'Food & Beverages',
+    subcategory: 'Condiments',
+  },
+
+  // Baby & Kids (completely missing)
+  {
+    id: 'np024-4567-8901-2345-678901234567',
+    label: 'Chicco Bravo LE Quick-Fold Stroller',
+    value: 'Chicco Bravo LE Quick-Fold Stroller',
+    price: 32999,
+    image:
+      'https://i5.walmartimages.com/seo/Chicco-Bravo-Quick-Fold-Stroller-Black-Black_2a5ed73a-639b-4267-bcc7-4f2c2d6b3e78.3e0c334eb0e9d4a8788a526a978c08aa.jpeg',
+    description:
+      'Chicco Bravo LE lightweight stroller with one-hand quick fold, adjustable handlebar, and large storage basket.',
+    link: '/products/np024-4567-8901-2345-678901234567',
+    category: 'Baby & Kids',
+    subcategory: 'Baby Gear',
+  },
+  {
+    id: 'np025-5678-9012-3456-789012345678',
+    label: 'Melissa & Doug World Map Puzzle',
+    value: 'Melissa & Doug World Map Puzzle',
+    price: 1999,
+    image: 'https://i.ebayimg.com/images/g/GJ8AAOSwNeJfJADy/s-l640.jpg',
+    description: 'Melissa & Doug 33-piece wooden world map puzzle with country names and capital cities. Ages 6+.',
+    link: '/products/np025-5678-9012-3456-789012345678',
+    category: 'Baby & Kids',
+    subcategory: 'Educational Toys',
   },
 ]
 
