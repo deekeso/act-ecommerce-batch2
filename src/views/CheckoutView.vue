@@ -114,7 +114,7 @@ function onProfileUpdate(formData: AddressRuleForm) {
 function handleCheckOut() {
   const { firstname, lastname, contact, address } = billingAddress.value
   if (!firstname || !lastname || !contact || !address) {
-    ElMessage.error('Please confirm youre shipping address')
+    ElMessage.error('Please confirm your shipping address')
     return
   }
 
