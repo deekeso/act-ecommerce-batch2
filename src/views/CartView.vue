@@ -86,7 +86,7 @@ function handleCheckout() {
     return
   }
 
-  if (cartStore.getSelectedItemLegnth === 0) {
+  if (cartStore.getSelectedItemLength === 0) {
     ElMessage.error('No selected items')
     return
   }
