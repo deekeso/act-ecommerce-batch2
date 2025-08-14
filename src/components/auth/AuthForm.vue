@@ -75,12 +75,17 @@ const rules = reactive<FormRules<RuleForm>>({
   confirmPassword: [{ validator: matchPassword(() => ruleForm.password ?? ''), trigger: 'blur' }],
 })
 
+const formattedValue = () => ({
+  ...ruleForm,
+  email: ruleForm.email?.toLowerCase(),
+})
+
 const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
   await formEl.validate((valid) => {
     if (valid) {
-      console.log(ruleForm)
-      emit('on-submit', { ...ruleForm })
+      console.log()
+      emit('on-submit', formattedValue())
     } else {
       ElMessage.error('Invalid username or password')
     }
